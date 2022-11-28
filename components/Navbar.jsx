@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Logo } from './Logo';
 import { CiShoppingCart } from 'react-icons/ci';
 import { IoMdMenu, IoMdClose } from 'react-icons/io';
