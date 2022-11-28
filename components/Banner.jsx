@@ -1,5 +1,5 @@
 import React from 'react';
-//import BannerStats from '../assets/Hero.png';
+import bannerStats from '../assets/Hero.png';
 import Image from 'next/image';
 
 const renderSwitch = ({
@@ -14,12 +14,7 @@ const renderSwitch = ({
       return (
         <div className="relative text-white w-full px-2 md:px-4">
           <a href="" className="w-full">
-            <Image
-              src="https://raw.githubusercontent.com/originalkamaal/but-react/main/src/assets/illustrations/Hero.png"
-              width={100}
-              height={60}
-              className="w-full"
-            />
+            <Image src={bannerStats} className="w-full" />
           </a>
         </div>
       );
