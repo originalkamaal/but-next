@@ -1,5 +1,5 @@
 import React from 'react';
-import BannerStats from '../assets/illustrations/Hero.png';
+import BannerStats from '../assets/Hero.png';
 
 const renderSwitch = ({
   title,
