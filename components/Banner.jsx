@@ -1,4 +1,6 @@
 import React from 'react';
+import Hero from '../assets/Hero.png'
+import Image from 'next/image'
 
 const renderSwitch = ({
   title,
@@ -12,7 +14,7 @@ const renderSwitch = ({
       return (
         <div className="relative text-white w-full px-2 md:px-4">
           <a href="" className="w-full">
-            <img src="/hero.png" className="w-full" />
+            <Image src={Hero} className="w-full" />
           </a>
         </div>
       );
