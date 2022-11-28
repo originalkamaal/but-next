@@ -1,4 +1,4 @@
-import BannerStats from '../../../../Hero.png';
+import BannerStats from '../../../assets/Hero.png';
 
 const renderSwitch = ({
   title,
