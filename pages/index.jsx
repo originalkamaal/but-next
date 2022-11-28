@@ -1,3 +1,9 @@
+import Layout from '../layouts/Main';
+import Banner from '../components/Banner';
 export default function Home() {
-  return <>Kamaal</>;
+  return (
+    <Layout>
+      <Banner />
+    </Layout>
+  );
 }
