@@ -63,7 +63,7 @@ export default function Navbar({ theme }) {
           {links.map((link, i) => {
             let even = links.legnth - 1 == i ? true : false;
             return (
-              <li>
+              <li key={i}>
                 <a className="whitespace-nowrap" href={link.src}>
                   {link.title}
                 </a>
@@ -165,7 +165,7 @@ export default function Navbar({ theme }) {
             {links.map((link, i) => {
               let even = links.legnth - 1 == i ? true : false;
               return (
-                <li>
+                <li key={i}>
                   <a href={link.src}>{link.title}</a>
                 </li>
               );
@@ -187,7 +187,7 @@ export default function Navbar({ theme }) {
               <a href="#">Logout</a>
             </li>
           </ul>
-          {/* Cart*/}
+          {/* Cart*/}	
           <div>
             <CiShoppingCart size={25} color={color} />
           </div>
