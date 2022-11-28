@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SectionTitle from '../core-components/SectionTitle';
+import SectionTitle from '../components/SectionTitle';
 import BlogsCard from '../components/BlogsCard';
 //title, desc, icon, link
 const OurServices = () => {

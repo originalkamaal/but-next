@@ -1,10 +1,10 @@
 import React from 'react';
 import WhyBrightUrbanCard from '../components/WhyBrightUrbanCard';
-import BestPricing from '../assets/illustrations/BestPricing.png';
-import ExpertTeam from '../assets/illustrations/ExpertTeam.png';
-import MultipleService from '../assets/illustrations/MultipleService.png';
-import QuickSupport from '../assets/illustrations/QuickSupport.png';
-import SectionTitle from '../core-components/SectionTitle';
+import BestPricing from '../assets/BestPricing.png';
+import ExpertTeam from '../assets/ExpertTeam.png';
+import MultipleService from '../assets/MultipleService.png';
+import QuickSupport from '../assets/QuickSupport.png';
+import SectionTitle from '../components/SectionTitle';
 
 const WhyBrightUrban = ({ title }) => {
   return (

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SectionTitle from '../core-components/SectionTitle';
+import SectionTitle from '../components/SectionTitle';
 import ServiceCard from '../components/ServiceCard';
 import AccountManagementIcon from '../assets/AccountManagementIcon.png';
 import AdsAndDMIcon from '../assets/AdsAndDMIcon.png';
