@@ -10,7 +10,7 @@ const WhyBrightUrban = ({ title }) => {
   return (
     <div>
       <SectionTitle title="Why BrightUrban" />
-      <div className="md:grid md:grid-cols-2 space-y-5">
+      <div className="grid grid-cols-2 space-y-5">
         <WhyBrightUrbanCard
           logo={BestPricing}
           title="Best & Competative Pricing."
