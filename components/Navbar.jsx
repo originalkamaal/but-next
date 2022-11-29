@@ -202,7 +202,9 @@ export default function Navbar({ }) {
         </div>
 
         <div className="cursor-pointer">
-          <Logo className="w-44" />
+          <Link href='/'>
+            <Logo className="w-44" />
+          </Link>
         </div>
 
         <div>
