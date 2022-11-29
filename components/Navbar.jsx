@@ -4,6 +4,7 @@ import { Logo } from './Logo';
 import { CiShoppingCart } from 'react-icons/ci';
 import { IoMdMenu, IoMdClose } from 'react-icons/io';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 export default function Navbar({ }) {
   const router = useRouter();
@@ -12,10 +13,7 @@ export default function Navbar({ }) {
     toggleMenu(!menu);
   };
 
-  const handleClick = (e, href) => {
-    e.preventDefault()
-    router.push(href);
-  }
+ 
   const links = [
     { title: 'Home', src: '/' },
     { title: 'Services', src: '/services' },
@@ -66,23 +64,23 @@ export default function Navbar({ }) {
             let even = links.legnth - 1 == i ? true : false;
             return (
               <li key={i}>
-                <div className="whitespace-nowrap cursor-pointer" onClick={(e) => handleClick(e, link.src)}>
+                <Link className="whitespace-nowrap cursor-pointer" href={link.title}>
                   {link.title}
-                </div>
+                </Link>
               </li>
             );
           })}
 
           <li>
-            <div
-              onClick={(e) => handleClick(e, "/myaccount")}
+            <Link
+              href="/myaccount"
               className="cursor-pointer"
             >
               My Account
-            </div>
+            </Link>
           </li>
           <li className="lg:hidden">
-            <div href="#">Logout</div>
+            <Link href="#">Logout</Link>
           </li>
         </ul>
       </div>
@@ -157,26 +155,25 @@ export default function Navbar({ }) {
               </div>
             </li>
             {links.map((link, i) => {
-              let even = links.legnth - 1 == i ? true : false;
               return (
                 <li key={i}>
-                  <div className="whitespace-nowrap cursor-pointer" onClick={(e) => handleClick(e, link.src)}>
+                  <Link className="whitespace-nowrap cursor-pointer" href={link.src}>
                     {link.title}
-                  </div>
+                  </Link>
                 </li>
               );
             })}
 
             <li>
-              <div
-                onClick={(e) => handleClick(e, "/myaccount")}
+              <Link
+                href="/myaccount"
                 className='cursor-pointer'
               >
                 My Account
-              </div>
+              </Link>
             </li>
             <li className="lg:hidden">
-              <div className="cursor-pointer" onClick={(e) => handleClick(e, link.src)}>Logout</div>
+              <Link className="cursor-pointer"href="#">Logout</Link>
             </li>
           </ul>
           {/* Cart*/}

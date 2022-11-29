@@ -1,6 +1,7 @@
 import React from 'react';
 import Hero from '../assets/Hero.svg'
 import Image from 'next/image'
+import Link from 'next/link';
 
 const renderSwitch = ({
   title,
@@ -12,11 +13,11 @@ const renderSwitch = ({
   switch (btnType) {
     case 0:
       return (
-          <a href="/" className="w-full">
+          <Link href="/" className="w-full">
         <div className="relative text-white w-full px-2 md:px-4">
             <Image src={Hero} className="w-full" height={400}/>
         </div>
-          </a>
+          </Link>
       );
     default:
       return 'foo';
