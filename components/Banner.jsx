@@ -14,7 +14,7 @@ const renderSwitch = ({
       return (
         <div className="relative text-white w-full px-2 md:px-4">
           <a href="" className="w-full">
-            <Image src={Hero} className="w-full" />
+            <Image src={Hero} className="w-full h-full" />
           </a>
         </div>
       );
