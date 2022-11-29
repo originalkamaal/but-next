@@ -5,7 +5,7 @@ import { CiShoppingCart } from 'react-icons/ci';
 import { IoMdMenu, IoMdClose } from 'react-icons/io';
 import { useRouter } from 'next/router';
 
-export default function Navbar({ theme }) {
+export default function Navbar({ }) {
   const router = useRouter();
   const [menu, toggleMenu] = useState(false);
   const handleToggleMenu = () => {
@@ -75,12 +75,8 @@ export default function Navbar({ theme }) {
 
           <li>
             <div
-              href="#"
-              className={
-                theme == 'dark'
-                  ? 'bg-white text-black px-2 py-1 rounded-lg'
-                  : 'bg-black text-white px-2 py-1 rounded-lg'
-              }
+              onClick={(e) => handleClick(e, "/myaccount")}
+              className="cursor-pointer"
             >
               My Account
             </div>
@@ -164,25 +160,23 @@ export default function Navbar({ theme }) {
               let even = links.legnth - 1 == i ? true : false;
               return (
                 <li key={i}>
-                  <div href={link.src}>{link.title}</div>
+                  <div className="whitespace-nowrap cursor-pointer" onClick={(e) => handleClick(e, link.src)}>
+                    {link.title}
+                  </div>
                 </li>
               );
             })}
 
             <li>
               <div
-                href="#"
-                className={
-                  theme == 'dark'
-                    ? 'bg-white text-black px-2 py-1 rounded-lg'
-                    : 'bg-black text-white px-2 py-1 rounded-lg'
-                }
+                onClick={(e) => handleClick(e, "/myaccount")}
+                className='cursor-pointer'
               >
                 My Account
               </div>
             </li>
             <li className="lg:hidden">
-              <div href="#">Logout</div>
+              <div className="cursor-pointer" onClick={(e) => handleClick(e, link.src)}>Logout</div>
             </li>
           </ul>
           {/* Cart*/}
