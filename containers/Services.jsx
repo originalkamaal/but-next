@@ -30,7 +30,7 @@ const Services = () => {
     return (
         <div className='w-full'>
             <div className='grid grid-cols-1 lg:grid-cols-5'>
-                <div className='col-span-1 bg-gray-100 flex flex-col items-start order-2 lg:order-1 pb-10'>
+                <div className='col-span-1 bg-gray-200 rounded-md ml-3 mr-3 lg:mr-0 mb-3 flex flex-col items-start order-2 lg:order-1 pb-10'>
 
 
 
@@ -41,15 +41,15 @@ const Services = () => {
 
                     <div className='px-4 py-1 self-center text-center text-budarkblue border-2 border-budarkblue rounded-sm'>Apply Filter</div>
                 </div>
-                <div className='col-span-4 order-1 lg:order-2 grid grid-cols-2 gap-4 p-4 lg:grid-cols-4'>
+                <div className='col-span-4 order-1 lg:order-2 grid grid-cols-1 gap-4 p-4 lg:grid-cols-4'>
 
 
 
-                    <ServiceCard title="Account Management" marketplace="AMZ" />
-                    <ServiceCard title="Account Management" marketplace="FKT" />
-                    <ServiceCard title="Account Management" marketplace="PTM" />
-                    <ServiceCard title="Account Management" marketplace="SCL" />
-                    <ServiceCard title="Account Management" marketplace="EBY" />
+                    <ServiceCard service="AM" marketplace="AMZ" />
+                    <ServiceCard service="RE" marketplace="FKT" />
+                    <ServiceCard service="LC" marketplace="PTM" />
+                    <ServiceCard service="PP" marketplace="SCL" />
+                    <ServiceCard service="RE" marketplace="EBY" />
 
                 </div>
 
