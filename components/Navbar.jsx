@@ -151,7 +151,7 @@ export default function Navbar({ }) {
                   name="q"
                   className="py-2 w-80 text-sm text-white bg-gray-100 rounded-md pr-10 pl-3 focus:outline-none  focus:text-gray-900"
                   maxLength={256}
-                  placeholder="Search..."
+                  placeholder="Search"
                   autoComplete="off"
                 />
               </div>
