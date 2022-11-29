@@ -2,15 +2,20 @@ import Layout from '../layouts/Main';
 
 import Banner from '../components/Banner';
 import ContactForm from '../components/ContactForm';
-import WhyBrightUrban from '../containers/WhyBrightUrban'
-import OurServices from '../containers/OurServices'
-import BlogsHome from '../containers/BlogsHome'
-import OurAchievements from '../containers/OurAchievements'
+import WhyBrightUrban from '../containers/WhyBrightUrban';
+import OurServices from '../containers/OurServices';
+import BlogsHome from '../containers/BlogsHome';
+import OurAchievements from '../containers/OurAchievements';
 import SectionTitle from '../components/SectionTitle';
+import { useSession, signIn, signOut } from "next-auth/react";
 
 
 export default function Home() {
-
+  const { data: session } = useSession();
+  if (session) {
+    console.log(session);
+    signIn();
+  }
   return (
 
     <Layout>
@@ -23,10 +28,10 @@ export default function Home() {
       <BlogsHome />
 
       <OurAchievements />
-      <SectionTitle title="Contact Us"/>
-      <ContactForm/>
+      <SectionTitle title="Contact Us" />
+      <ContactForm />
 
-      
+
 
 
     </Layout>
