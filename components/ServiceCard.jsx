@@ -1,5 +1,5 @@
 import React from 'react';
-impoet Image from 'next/image'
+impoet Image from 'next/image';		
 
 const ServiceCard = ({ data }) => {
   let icon = data.icon;
