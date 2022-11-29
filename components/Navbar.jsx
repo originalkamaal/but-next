@@ -3,35 +3,37 @@ import { useState } from 'react';
 import { Logo } from './Logo';
 import { CiShoppingCart } from 'react-icons/ci';
 import { IoMdMenu, IoMdClose } from 'react-icons/io';
+import { useRouter } from 'next/router';
 
 export default function Navbar({ theme }) {
-  theme = theme == undefined ? 'light' : theme;
-  var color = theme == 'dark' ? '#ffffff' : '#000000';
+  const router = useRouter();
   const [menu, toggleMenu] = useState(false);
   const handleToggleMenu = () => {
     toggleMenu(!menu);
   };
+
+  const handleClick = (e, href) => {
+    e.preventDefault()
+    router.push(href);
+  }
   const links = [
-    { title: 'Home', src: '#' },
-    { title: 'Services', src: '#' },
-    { title: 'Blog', src: '#' },
-    { title: 'About Us', src: '#' },
-    { title: 'Contact Us', src: '#' },
+    { title: 'Home', src: '/' },
+    { title: 'Services', src: '/services' },
+    { title: 'Blog', src: '/blog' },
+    { title: 'About Us', src: '/about' },
+    { title: 'Contact Us', src: '/contact' },
   ];
   return (
     <div
-      className={`${
-        theme == 'dark' ? 'bg-black text-white' : 'text-black bg-white'
-      } sticky top-0 z-40 `}
+      className={`${'text-black bg-white'
+        } sticky top-0 z-40 `}
     >
       {/* Mobile Links */}
       <div className="flex space-x-5">
         <ul
-          className={`${
-            theme == 'dark' ? 'bg-black text-white' : 'text-black bg-white'
-          } absolute top-[70px] w-full py-3  lg:hidden flex flex-col items-center justify-center  space-y-5 font-[Outfit] ${
-            menu == true ? 'left-0' : 'hidden'
-          }`}
+          className={`${'text-black bg-white'
+            } absolute top-[70px] w-full py-3  lg:hidden flex flex-col items-center justify-center  space-y-5 font-[Outfit] ${menu == true ? 'left-0' : 'hidden'
+            }`}
         >
           <li className="flex items-center lg:hidden justify-center">
             <div className="relative text-gray-600">
@@ -64,15 +66,15 @@ export default function Navbar({ theme }) {
             let even = links.legnth - 1 == i ? true : false;
             return (
               <li key={i}>
-                <a className="whitespace-nowrap" href={link.src}>
+                <div className="whitespace-nowrap cursor-pointer" onClick={(e) => handleClick(e, link.src)}>
                   {link.title}
-                </a>
+                </div>
               </li>
             );
           })}
 
           <li>
-            <a
+            <div
               href="#"
               className={
                 theme == 'dark'
@@ -81,22 +83,20 @@ export default function Navbar({ theme }) {
               }
             >
               My Account
-            </a>
+            </div>
           </li>
           <li className="lg:hidden">
-            <a href="#">Logout</a>
+            <div href="#">Logout</div>
           </li>
         </ul>
       </div>
       {/* Navbar Container */}
       <div
-        className={`${
-          theme == 'dark' ? 'bg-black text-white' : ''
-        } hidden lg:flex justify-between h-[70px] px-6 lg:px-10 items-center w-full relative`}
+        className={`hidden lg:flex justify-between h-[70px] px-6 lg:px-10 items-center w-full relative`}
       >
         {/* Logo */}
         <div className="cursor-pointer">
-          <Logo className="" color={color} />
+          <Logo className="" />
         </div>
         {/* Search Articles */}
         <div className="lg:flex items-center hidden justify-center">
@@ -129,11 +129,9 @@ export default function Navbar({ theme }) {
         {/* Links */}
         <div className="flex space-x-5">
           <ul
-            className={`${
-              theme == 'dark' ? 'bg-black text-white' : 'text-black bg-white'
-            } 'z-[-1] lg:z-10 lg:static absolute top-[70px] w-full lg:w-auto py-6 lg:py-0 flex flex-col lg:flex-row items-center justify-center lg:space-x-5 lg:pl-0 space-y-5 lg:space-y-0 font-[Outfit] ${
-              menu == true ? 'left-0' : 'left-[-100%]'
-            }`}
+            className={`${'text-black bg-white'
+              } 'z-[-1] lg:z-10 lg:static absolute top-[70px] w-full lg:w-auto py-6 lg:py-0 flex flex-col lg:flex-row items-center justify-center lg:space-x-5 lg:pl-0 space-y-5 lg:space-y-0 font-[Outfit] ${menu == true ? 'left-0' : 'left-[-100%]'
+              }`}
           >
             <li className="flex items-center lg:hidden justify-center">
               <div className="relative text-gray-600">
@@ -166,13 +164,13 @@ export default function Navbar({ theme }) {
               let even = links.legnth - 1 == i ? true : false;
               return (
                 <li key={i}>
-                  <a href={link.src}>{link.title}</a>
+                  <div href={link.src}>{link.title}</div>
                 </li>
               );
             })}
 
             <li>
-              <a
+              <div
                 href="#"
                 className={
                   theme == 'dark'
@@ -181,43 +179,41 @@ export default function Navbar({ theme }) {
                 }
               >
                 My Account
-              </a>
+              </div>
             </li>
             <li className="lg:hidden">
-              <a href="#">Logout</a>
+              <div href="#">Logout</div>
             </li>
           </ul>
-          {/* Cart*/}	
+          {/* Cart*/}
           <div>
-            <CiShoppingCart size={25} color={color} />
+            <CiShoppingCart size={25} />
           </div>
         </div>
       </div>
       <div
-        className={`${
-          theme == 'dark' ? 'bg-black text-white' : ''
-        } flex justify-between h-[70px] justify-center px-6 items-center w-full lg:hidden relative`}
+        className={`${''
+          } flex justify-between h-[70px] justify-center px-6 items-center w-full lg:hidden relative`}
       >
         {/* Toggle Button */}
         <div
           onClick={handleToggleMenu}
-          className={`${
-            theme == 'dark' ? 'bg-black text-white' : 'bg-white text-black'
-          } cursor-pointer`}
+          className={`${'bg-white text-black'
+            } cursor-pointer`}
         >
           {menu == true ? (
-            <IoMdClose size={25} color={color} />
+            <IoMdClose size={25} />
           ) : (
-            <IoMdMenu size={25} color={color} />
+            <IoMdMenu size={25} />
           )}
         </div>
 
         <div className="cursor-pointer">
-          <Logo className="w-44" color={color} />
+          <Logo className="w-44" />
         </div>
 
         <div>
-          <CiShoppingCart size={25} color={color} />
+          <CiShoppingCart size={25} />
         </div>
       </div>
     </div>
