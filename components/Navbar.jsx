@@ -89,7 +89,10 @@ export default function Navbar({ }) {
       >
         {/* Logo */}
         <div className="cursor-pointer">
-          <Logo className="" />
+          <Link href="/">
+
+            <Logo className="" />
+          </Link>
         </div>
         {/* Search Articles */}
         <div className="lg:flex items-center hidden justify-center">

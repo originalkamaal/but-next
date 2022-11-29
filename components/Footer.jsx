@@ -26,8 +26,8 @@ const Footer = () => {
         <div>
           <svg
 
-            width="350"
-            height="30"
+            width="150"
+            height="15"
             viewBox="0 0 326 30"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
