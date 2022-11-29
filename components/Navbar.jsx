@@ -92,11 +92,11 @@ export default function Navbar({ theme }) {
       <div
         className={`${
           theme == 'dark' ? 'bg-black text-white' : ''
-        } hidden lg:flex justify-between h-[70px] justify-center px-6 lg:px-10 items-center w-full relative`}
+        } hidden lg:flex justify-between h-[70px] px-6 lg:px-10 items-center w-full relative`}
       >
         {/* Logo */}
         <div className="cursor-pointer">
-          <Logo className="w-44" color={color} />
+          <Logo className="" color={color} />
         </div>
         {/* Search Articles */}
         <div className="lg:flex items-center hidden justify-center">
