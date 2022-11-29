@@ -1,14 +1,14 @@
 import React from 'react'
 import Layout from '../layouts/Main';
 
-const Services = () => {
+const AboutUs = () => {
     return (
         <Layout>
 
-            <div>Services</div>
+            <div>AboutUs</div>
         </Layout>
 
     )
 }
 
-export default Services
+export default AboutUs

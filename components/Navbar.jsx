@@ -13,7 +13,7 @@ export default function Navbar({ }) {
     toggleMenu(!menu);
   };
 
- 
+
   const links = [
     { title: 'Home', src: '/' },
     { title: 'Services', src: '/services' },
@@ -23,8 +23,7 @@ export default function Navbar({ }) {
   ];
   return (
     <div
-      className={`${'text-black bg-white'
-        } sticky top-0 z-40 `}
+      className='text-black bg-white sticky top-0 z-40'
     >
       {/* Mobile Links */}
       <div className="flex space-x-5">
@@ -64,7 +63,7 @@ export default function Navbar({ }) {
             let even = links.legnth - 1 == i ? true : false;
             return (
               <li key={i}>
-                <Link className="whitespace-nowrap cursor-pointer" href={link.title}>
+                <Link className="whitespace-nowrap cursor-pointer" href={link.src}>
                   {link.title}
                 </Link>
               </li>
@@ -173,7 +172,7 @@ export default function Navbar({ }) {
               </Link>
             </li>
             <li className="lg:hidden">
-              <Link className="cursor-pointer"href="#">Logout</Link>
+              <Link className="cursor-pointer" href="#">Logout</Link>
             </li>
           </ul>
           {/* Cart*/}

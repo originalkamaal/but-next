@@ -1,14 +1,14 @@
 import React from 'react'
 import Layout from '../layouts/Main';
 
-const Services = () => {
+const Blog = () => {
     return (
         <Layout>
 
-            <div>Services</div>
+            <div>Blog</div>
         </Layout>
 
     )
 }
 
-export default Services
+export default Blog
