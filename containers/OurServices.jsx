@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SectionTitle from '../components/SectionTitle';
-import ServiceCard from '../components/ServiceCard';
+import OurServiceCard from '../components/OurServiceCard';
 import AccountManagementIcon from '../assets/AccountManagementIcon.png';
 import AdsAndDMIcon from '../assets/AdsAndDMIcon.png';
 import AppDevIcon from '../assets/AppDevIcon.png';
@@ -26,13 +26,13 @@ const OurServices = () => {
       link: '#',
     },
     {
-      title: 'Product Photoshoot',
+      title: 'Product Photography',
       desc: 'Do you want to showcase your products with high quality Imagery? We can help you increase views for your product following marketplace guidelines.',
       icon: { ProductPhotographyIcon },
       link: '#',
     },
     {
-      title: 'Listing & Cataloging',
+      title: 'Listing & Catalogs',
       desc: 'We are expert in creating apealing catalog with optimised content that will attract more customers.',
       icon: { ListingAndCatalogingIcon },
       link: '#',
@@ -44,19 +44,19 @@ const OurServices = () => {
       link: '#',
     },
     {
-      title: 'Advertisements & Digital Marketing',
+      title: 'Ads & Digital Marketing',
       desc: 'Getting low visibility, or you want to promote your products or brand? Let our Digital marketing experts manage your advertisements',
       icon: { AdsAndDMIcon },
       link: '#',
     },
     {
-      title: 'Seller Account Reinstatement',
+      title: 'Account Reinstatement',
       desc: "Has your account been deactivated or been put on-hold? Our experts will help you reinstate your account and assist you to ensure your accounts don't get suspended in future.",
       icon: { SellerReinstatementIcon },
       link: '#',
     },
     {
-      title: 'Own Ecommerce Website / App',
+      title: 'Website/App Development',
       desc: 'Willing to start your online store website and/or app? Let us do it for you. We can build performing website, android and ios apps using modern technologies.',
       icon: { AppDevIcon },
       link: '#',
@@ -67,7 +67,7 @@ const OurServices = () => {
       <SectionTitle title="Our Services" link="#" linkTitle="View All" />
       <div className="grid grid-cols-2 lg:grid-cols-4 px-3">
         {services.map((el, i) => {
-          return <ServiceCard key={i} data={el} />;
+          return <OurServiceCard key={i} data={el} />;
         })}
       </div>
     </div>
