@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Layout from '../layouts/Main';
 import { signIn } from 'next-auth/react';
 
-const login = () => {
+const Login = () => {
     const [userInfo, setUserInfo] = useState({ email: '', password: '' });
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -145,4 +145,4 @@ const login = () => {
     )
 }
 
-export default login
+export default Login
