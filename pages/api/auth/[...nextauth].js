@@ -1,15 +1,26 @@
 import NextAuth from 'next-auth'
-import AppleProvider from 'next-auth/providers/apple'
-import FacebookProvider from 'next-auth/providers/facebook'
-import GoogleProvider from 'next-auth/providers/google'
-import EmailProvider from 'next-auth/providers/email'
+import  CredentialsProvider  from 'next-auth/providers/credentials'
 
 export default NextAuth({
+  session: { strategy: 'jwt' },
   providers: [
-    // OAuth authentication providers...
-    GoogleProvider({
-      clientId: process.env.GOOGLE_ID,
-      clientSecret: process.env.GOOGLE_SECRET
-    }),
-  ]
+    CredentialsProvider({
+      type: "Credentials",
+      credentials: {
+        
+      },
+      async authorize(credentials, req) {
+        const { email, password } = credentials
+        if (email == "originalkamaal@gmail.com" && password == "kamal@2014") {
+          return ({email, id:"12134234"});
+        }
+        else return null
+
+
+      }
+    })
+  ],
+  pages:{
+    signIn :'/login'
+  }
 })

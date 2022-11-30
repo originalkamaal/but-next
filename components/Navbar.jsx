@@ -168,7 +168,7 @@ export default function Navbar({ }) {
 
             <li>
               <Link
-                href="/myaccount"
+                href="/login"
                 className='cursor-pointer'
               >
                 My Account
