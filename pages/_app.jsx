@@ -12,11 +12,10 @@ NProgress.configure({ showSpinner: false })
 
 
 function MyApp({
-  Component, pageProps: { session, ...pageProps }
-}) {
+  Component, pageProps }) {
   return (
-    <SessionProvider session={session}>
-      <Component {...pageProps}/>
+    <SessionProvider session={pageProps.session}>
+      <Component {...pageProps} />
     </SessionProvider>
   )
 }
