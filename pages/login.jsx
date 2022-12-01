@@ -1,9 +1,14 @@
 import React, { useState } from 'react'
 import Layout from '../layouts/Main';
-import { signIn, useSession } from 'next-auth/react';
+import { getSession, signIn, useSession } from 'next-auth/react';
+import { unstable_getServerSession } from "next-auth/next";
+import { authOptions } from "./api/auth/[...nextauth]";
 
 const Login = () => {
     const [userInfo, setUserInfo] = useState({ email: '', password: '' });
+
+    const { data } = useSession();
+    console.log(data);
     const handleLogin = async (e) => {
         e.preventDefault();
         const res = await signIn('credentials', {
@@ -143,6 +148,15 @@ const Login = () => {
             </section>
         </Layout>
     )
+}
+
+export async function getStaticProps(context) {
+    return {
+        props: {
+            session: await getSession(
+            ),
+        },
+    }
 }
 
 export default Login

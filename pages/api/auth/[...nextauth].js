@@ -1,6 +1,7 @@
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import clientPromise from "../../../lib/mongodb";
+import { MongoDBAdapter } from '@next-auth/mongodb-adapter';
 
 export default NextAuth({
   session: { strategy: 'jwt' },
@@ -27,20 +28,14 @@ export default NextAuth({
   pages: {
     signIn: '/login'
   },
-  jwt: {
-    encode: true
-  },
   callbacks: {
-    jwt(params) {
+    async jwt(params) {
+      console.log(params)
       if (params.user?.role) {
         params.token.role = params.user.role;
       }
       return params.token;
 
-    },
-    async redirect({ url, baseUrl }) {
-      console.log(url, baseUrl);
-      return baseUrl
     },
   },
   adapter: MongoDBAdapter(clientPromise)
