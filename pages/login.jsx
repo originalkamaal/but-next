@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Layout from '../layouts/Main';
-import { signIn, signOut, useSession } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
@@ -24,7 +24,7 @@ const Login = (d) => {
     }
 
     const ValidateEmail = (mail) => {
-        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(myForm.emailAddr.value)) {
+        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
             return (true)
         }
         alert("You have entered an invalid email address!");
@@ -33,7 +33,7 @@ const Login = (d) => {
 
     //^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$
 
-    
+
     return (
         <Layout>
             <section className="h-full">
