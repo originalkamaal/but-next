@@ -15,7 +15,7 @@ const renderSwitch = ({
       return (
           <Link href="/" className="w-full">
         <div className="relative text-white w-full px-2 md:px-4">
-            <Image src={Hero} className="w-full" height={400}/>
+            <Image priority={true} src={Hero} className="w-full" height={400}/>
         </div>
           </Link>
       );
