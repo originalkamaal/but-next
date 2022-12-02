@@ -55,4 +55,10 @@ export default NextAuth({
   session: {
     strategy: "jwt",
   },
+  callbacks:{
+    async redirect({ url, baseUrl }) {
+      console.log(baseUrl, url)
+      return baseUrl
+    },
+  }
 });

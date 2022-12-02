@@ -15,6 +15,19 @@ const Register = (d) => {
         signOut();
     }
 
+    const validateStrength = (password) => {
+        if (/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})/.test(myForm.emailAddr.value)) {
+            return (true)
+        }
+        alert(`Please choose a Strong password \n 
+             The password is at least 8 characters long. \n
+             The password has at least one uppercase letter.\n
+             The password has at least one lowercase letter.\n
+             The password has at least one digit.\n
+             The password has at least one special.`);
+        return (false)
+    
+    }
 
 
     // console.log(d);

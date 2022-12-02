@@ -1,14 +1,17 @@
 'use client';
 import { useState } from 'react';
 import { Logo } from './Logo';
-import { CiShoppingCart } from 'react-icons/ci';
-import { IoMdMenu, IoMdClose } from 'react-icons/io';
-import { useRouter } from 'next/router';
+import { HiOutlineShoppingBag, HiMenu } from 'react-icons/hi';
+import { GiSplitCross } from 'react-icons/gi';
 import Link from 'next/link';
+import { signOut, useSession } from 'next-auth/react';
+
 
 export default function Navbar({ }) {
-  const router = useRouter();
+
   const [menu, toggleMenu] = useState(false);
+  const [subMenu, setSubMenu] = useState('');
+  const session = useSession();
   const handleToggleMenu = () => {
     toggleMenu(!menu);
   };
@@ -70,17 +73,35 @@ export default function Navbar({ }) {
             );
           })}
 
-          <li>
-            <Link
-              href="/myaccount"
-              className="cursor-pointer"
-            >
+          {session.data ?
+            (<li className='w-full flex flex-col justify-center items-center' onClick={() => {
+              subMenu == 'myaccount' ? setSubMenu('') : setSubMenu('myaccount');
+              console.log(subMenu);
+            }}>
               My Account
-            </Link>
-          </li>
-          <li className="lg:hidden">
-            <Link href="#">Logout</Link>
-          </li>
+
+              <div className={`${subMenu != 'myaccount' ? 'hidden' : 'flex flex-col'} w-full`}>
+
+                <ul className='flex flex-col items-start w-full px-5 space-y-3 bg-gray-100 py-3 text-sm mt-3'>
+                  <li>
+                    <Link
+                      href={`${session.data ? '/myaccount' : '/login'}`}
+                      className="cursor-pointer"
+                    >
+                      {session.data ? 'My Account' : 'Sign Up/Login'}
+                    </Link>
+                  </li>
+                  <li>Edit Profile</li>
+                  <li onClick={signOut}>Logout</li>
+                </ul>
+              </div>
+            </li>
+            ) : (
+              <li className='w-full flex flex-col justify-center items-center'>
+                <Link href="/login">Sign Up/Login</Link>
+              </li>
+            )
+            }
         </ul>
       </div>
       {/* Navbar Container */}
@@ -180,7 +201,7 @@ export default function Navbar({ }) {
           </ul>
           {/* Cart*/}
           <div>
-            <CiShoppingCart size={25} />
+            <HiOutlineShoppingBag size={25} />
           </div>
         </div>
       </div>
@@ -195,9 +216,9 @@ export default function Navbar({ }) {
             } cursor-pointer`}
         >
           {menu == true ? (
-            <IoMdClose size={25} />
+            <GiSplitCross size={25} />
           ) : (
-            <IoMdMenu size={25} />
+            <HiMenu size={25} />
           )}
         </div>
 
@@ -208,7 +229,7 @@ export default function Navbar({ }) {
         </div>
 
         <div>
-          <CiShoppingCart size={25} />
+          <HiOutlineShoppingBag size={25} />
         </div>
       </div>
     </div>
