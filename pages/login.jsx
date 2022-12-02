@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import Layout from '../layouts/Main';
-import { getSession, signIn, useSession } from 'next-auth/react';
-import { unstable_getServerSession } from "next-auth/next";
-import { authOptions } from "./api/auth/[...nextauth]";
+import { signIn, signOut, useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
-const Login = () => {
+const Login = (d) => {
     const [userInfo, setUserInfo] = useState({ email: '', password: '' });
+    const router = useRouter();
+    //signOut();
 
-    const { data } = useSession();
-    console.log(data);
+    console.log(d);
     const handleLogin = async (e) => {
         e.preventDefault();
         const res = await signIn('credentials', {
@@ -16,7 +16,9 @@ const Login = () => {
             email: userInfo.email,
             password: userInfo.password
         })
-        console.log(res);
+        if(res.ok){
+            router.push('/');
+        }
     }
     return (
         <Layout>
@@ -150,13 +152,6 @@ const Login = () => {
     )
 }
 
-export async function getStaticProps(context) {
-    return {
-        props: {
-            session: await getSession(
-            ),
-        },
-    }
-}
+
 
 export default Login

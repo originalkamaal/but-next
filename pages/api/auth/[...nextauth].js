@@ -4,6 +4,7 @@ import clientPromise from "../../../lib/mongodb";
 import { MongoDBAdapter } from '@next-auth/mongodb-adapter';
 
 export default NextAuth({
+  adapter: MongoDBAdapter(clientPromise),
   session: { strategy: 'jwt' },
   providers: [
     CredentialsProvider({
@@ -38,6 +39,5 @@ export default NextAuth({
 
     },
   },
-  adapter: MongoDBAdapter(clientPromise)
 
 })
