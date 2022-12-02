@@ -1,10 +1,12 @@
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import clientPromise from "../../../lib/mongodb";
-import { MongoDBAdapter } from '@next-auth/mongodb-adapter';
+import connect from '../../../lib/mongodb';
+import User from '../../../model/schema';
+import { compare } from 'bcryptjs';
+
 
 export default NextAuth({
-  adapter: MongoDBAdapter(clientPromise),
+  //adapter: MongoDBAdapter(clientPromise),
   session: { strategy: 'jwt' },
   providers: [
     CredentialsProvider({
@@ -13,15 +15,20 @@ export default NextAuth({
 
       },
       async authorize(credentials, req) {
-        console.log(credentials);
-        const { email, password } = credentials
-        if (email == "originalkamaal@gmail.com" || password == "kamal@2014") {
-          return ({ email, id: "12134234", role: "admin" });
-        }
-        else {
-          throw new Error("Invalid Credentials")
-        }
+        connect();
 
+        const result = await User.findOne({ email: credentials.email });
+        console.log(result,"nextauth login");
+        if (!result) {
+          throw new Error('No user found with the email');
+        }
+        //Check hased password with DB password
+        const checkPassword = await compare(credentials.passowrd, result.passowrd);
+        //Incorrect password - send response
+        if (!checkPassword) {
+          throw new Error('Password doesnt match');
+        }
+        return { email: result.email};
 
       }
     })
