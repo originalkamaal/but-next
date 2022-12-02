@@ -91,3 +91,5 @@ psd
 thumb
 sketch.next
 node_modules
+
+.env
