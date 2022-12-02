@@ -1,50 +1,58 @@
-import NextAuth from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
-import connect from '../../../lib/mongodb';
-import User from '../../../model/schema';
-import { compare } from 'bcryptjs';
-
+import NextAuth from "next-auth";
+import GithubProvider from "next-auth/providers/github";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
+import clientPromise from "../../../lib/mongodb";
+import dbConnect from "../../../lib/connectDB";
+import User from "../../../models/User";
+import { compare } from "bcryptjs";
 
 export default NextAuth({
-  //adapter: MongoDBAdapter(clientPromise),
-  session: { strategy: 'jwt' },
   providers: [
+    GithubProvider({
+      clientId: process.env.GITHUB_ID,
+      clientSecret: process.env.GITHUB_SECRET,
+    }),
+    // Email & Password
     CredentialsProvider({
-      type: "credentials",
+      id: "credentials",
+      name: "Credentials",
       credentials: {
-
       },
-      async authorize(credentials, req) {
-        connect();
+      async authorize(credentials) {
+        await dbConnect();
 
-        const result = await User.findOne({ email: credentials.email });
-        console.log(result,"nextauth login");
-        if (!result) {
-          throw new Error('No user found with the email');
-        }
-        //Check hased password with DB password
-        const checkPassword = await compare(credentials.passowrd, result.passowrd);
-        //Incorrect password - send response
-        if (!checkPassword) {
-          throw new Error('Password doesnt match');
-        }
-        return { email: result.email};
+        // Find user with the email
+        const user = await User.findOne({
+          email: credentials?.email,
+        });
 
-      }
-    })
+        // Email Not found
+        if (!user) {
+          throw new Error("Email is not registered");
+        }
+
+        // Check hased password with DB hashed password
+        const isPasswordCorrect = await compare(
+          credentials.password,
+          user.password
+        );
+
+        // Incorrect password
+        if (!isPasswordCorrect) {
+          throw new Error("Password is incorrect");
+        }
+
+        return user;
+      },
+    }),
   ],
   pages: {
-    signIn: '/login'
+    signIn: "/login",
   },
-  callbacks: {
-    async jwt(params) {
-      console.log(params)
-      if (params.user?.role) {
-        params.token.role = params.user.role;
-      }
-      return params.token;
-
-    },
+  debug: process.env.NODE_ENV === "development",
+  adapter: MongoDBAdapter(clientPromise),
+  session: {
+    strategy: "jwt",
   },
-
-})
+});
