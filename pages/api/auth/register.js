@@ -1,5 +1,5 @@
-import connectDB from "../../../connectDB"
-import User from "../../../model/schema"
+import connectDB from "../../../lib/connectDB"
+import User from "../../../models/User"
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
 import absoluteUrl from "next-absolute-url"
@@ -10,7 +10,7 @@ connectDB()
 export default async (req, res) => {
   try {
     if (req.method === "POST") {
-      const { email, password, firstName, lastName } = req.body
+      const { email, password, name } = req.body
 
       // console.log(email, password, firstName, lastName)
 
@@ -24,7 +24,7 @@ export default async (req, res) => {
       const newUser = await new User({
         email: email,
         password: HashedPassword,
-        name: `${firstName} ${lastName}`,
+        name: name,
       }).save()
 
       const token = jwt.sign({ _id: newUser._id }, process.env.NEXTAUTH_SECRET, {
@@ -46,11 +46,11 @@ export default async (req, res) => {
 
       // console.log("here")
 
-      await sendEmail({
-        to: newUser.email,
-        subject: "Password Reset",
-        text: message,
-      })
+      // await sendEmail({
+      //   to: newUser.email,
+      //   subject: "Password Reset",
+      //   text: message,
+      // })
 
       return res.status(200).json({
         message: `Email sent to ${newUser.email}, please check your email`,

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useRouter } from "next/router"
 import { useState, useEffect } from "react";
 
@@ -15,17 +16,13 @@ export default function EmailConfirm() {
 
     const sendToken = async (token) => {
         try {
-            const config = {
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            }
 
             const res = await fetch(`/api/verify/${token}`, {
                 "method": "PUT",
-                "headers" : headers
+                "headers": {
+                    "Content-Type": "application/json",
+                }
             });
-            console.log(res);
 
             setStatus("Successfully Verified")
         } catch (error) {
@@ -34,7 +31,13 @@ export default function EmailConfirm() {
     }
 
     return (
-        <div className="text-7xl text-blue-500 font-extrabold">
+        <div className="flex flex-col items-center justify-center h-screen w-full">
+            <div className=" text-7xl text-blue-500 font-extrabold">
+
             {status}
+            </div>
+            <div className="text-2xl font-extrabold pt-2">
+                <Link href='/'>Go to Home</Link>
+            </div>
         </div>)
 }

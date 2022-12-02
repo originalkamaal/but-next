@@ -7,6 +7,7 @@ import Link from 'next/link';
 const Login = (d) => {
     const [userInfo, setUserInfo] = useState({ email: '', password: '' });
     const router = useRouter();
+    const session = useSession();
     //signOut();
 
     console.log(d);
@@ -18,7 +19,12 @@ const Login = (d) => {
             password: userInfo.password
         })
         if(res.ok){
+            console.log(res)
             router.push('/');
+        }
+
+        if(session){
+            console.log(session)
         }
     }
     return (

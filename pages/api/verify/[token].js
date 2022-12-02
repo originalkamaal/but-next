@@ -1,8 +1,6 @@
-import connectDB from "../../../connectDB"
-import User from "../../../model/schema"
-import bcrypt from "bcryptjs"
+import connectDB from "../../../lib/connectDB"
+import User from "../../../models/User"
 import jwt from "jsonwebtoken"
-import absoluteUrl from "next-absolute-url"
 
 connectDB()
 
@@ -12,7 +10,8 @@ export default async (req, res) => {
             const { token } = req.query
 
             if (token) {
-                const decoded = await jwt.verify(token, process.env.JNEXTAUTH_SECRET)
+                const decoded = await jwt.verify(token, process.env.NEXTAUTH_SECRET);
+                console.log(decoded);
                 const user = await User.findById(decoded._id);
 
                 if (user) {
@@ -20,11 +19,11 @@ export default async (req, res) => {
                     user.emailToken = undefined
                     await user.save()
 
-                    return res.status(200).json({ message: "success", status: "ok" })
+                    return res.status(200).send({ message: "success", status: "ok" })
                 }
             }
             else {
-                return res.status(200).json({ message: "no Token" })
+                return res.status(200).send({ message: "no Token" })
             }
 
         }
