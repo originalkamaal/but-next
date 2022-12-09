@@ -9,6 +9,7 @@ import { signOut, useSession } from 'next-auth/react';
 
 export default function Navbar({ }) {
 
+
   const [menu, toggleMenu] = useState(false);
   const [subMenu, setSubMenu] = useState('');
   const session = useSession();
@@ -26,7 +27,7 @@ export default function Navbar({ }) {
   ];
   return (
     <div
-      className='text-black bg-white sticky top-0 z-40'
+      className='text-black bg-white sticky top-0 z-40 text-sm opacity-95'
     >
       {/* Mobile Links */}
       <div className="flex space-x-5">
@@ -101,12 +102,12 @@ export default function Navbar({ }) {
                 <Link href="/login">Sign Up/Login</Link>
               </li>
             )
-            }
+          }
         </ul>
       </div>
       {/* Navbar Container */}
       <div
-        className={`hidden lg:flex justify-between h-[70px] px-6 lg:px-10 items-center w-full relative`}
+        className={`hidden lg:flex justify-between h-[70px] px-6 z-100 lg:px-10 items-center w-full relative`}
       >
         {/* Logo */}
         <div className="cursor-pointer">
@@ -187,17 +188,26 @@ export default function Navbar({ }) {
               );
             })}
 
-            <li>
-              <Link
-                href="/login"
-                className='cursor-pointer'
-              >
-                My Account
-              </Link>
-            </li>
-            <li className="lg:hidden">
-              <Link className="cursor-pointer" href="#">Logout</Link>
-            </li>
+            {session.data ?
+              (<li className='group relative'>
+
+                <Link
+                  href="/login"
+                  className='cursor-pointer z-100'
+                >
+                  My Account
+                </Link>
+
+                <ul className='group-hover:flex hidden absolute pt-5 z-0 top-0 space-x-2 bg-white'>
+
+                  <li className="">
+                    <button className="cursor-pointer" onClick={signOut}>Logout</button>
+                  </li>
+                </ul>
+              </li>) : (<li className='w-full flex flex-col justify-center items-center'>
+                <Link href="/login">Sign Up/Login</Link>
+              </li>)
+            }
           </ul>
           {/* Cart*/}
           <div>

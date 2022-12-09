@@ -15,7 +15,7 @@ export default async (req, res) => {
                 const user = await User.findById(decoded._id);
 
                 if (user) {
-                    user.validEmail = "yes"
+                    user.validEmail = true
                     user.emailToken = undefined
                     await user.save()
 

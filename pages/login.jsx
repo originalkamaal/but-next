@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Layout from '../layouts/Main';
-import { signIn, useSession } from 'next-auth/react';
+import { signIn, useSession,getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
@@ -20,7 +20,7 @@ const Login = (d) => {
             })
             if (res.ok) {
                 console.log(res)
-                //router.push('/');
+                router.push('/');
             }
         }
     }
@@ -108,6 +108,21 @@ const Login = (d) => {
     )
 }
 
+export async function getServerSideProps(context) {
+    const session = await getSession(context)
 
+    if (session) {
+        return {
+            redirect: {
+                destination: '/',
+                permanent: false,
+            },
+        }
+    }
+
+    return {
+        props: { }
+    }
+}
 
 export default Login

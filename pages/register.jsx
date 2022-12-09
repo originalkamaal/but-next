@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Layout from '../layouts/Main';
-import { signIn, signOut, useSession } from 'next-auth/react';
+import { getSession, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
@@ -169,6 +169,22 @@ const Register = (d) => {
     )
 }
 
+export async function getServerSideProps(context) {
+  const session = await getSession(context)
+
+  if (session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
+  }
+
+  return {
+    props: { }
+  }
+}
 
 
 export default Register

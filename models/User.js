@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
     },
     resetToken: { type: String },
     update: { type: String },
-    validEmail: { type: String, default: "not" },
+    validEmail: { type: String, default: false },
     emailToken: { type: String },
     addressOne: {
         type: String,
