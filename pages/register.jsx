@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Layout from '../layouts/Main';
+import Layout from '../frontend/layouts/Main';
 import { getSession, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -47,7 +47,7 @@ const Register = (d) => {
                     if (res.status == 200) {
                         const data = await res.json();
                         console.log(data);
-                        router.push('/');
+                        router.push('/login');
 
                     } else {
                         setVError('Due to some technical problem we are unable to create your account please try after sometime.')
@@ -77,12 +77,12 @@ const Register = (d) => {
                                 alt="Phone image"
                             />
                         </div>
-                        <div className="md:w-8/12 lg:w-5/12 lg:ml-20 shadow-md p-12">
+                        <div className="w-full lg:w-5/12 lg:ml-20 rounded-xl overflow-hidden shadow-lg border-gray-100 border-4 p-5 lg:p-10 ">
                             <form onSubmit={handleSignup}>
                                 <div className="mb-6">
                                     <input
                                         type="text"
-                                        className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                        className="form-control block w-full px-4 py-2 text-sm font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                         placeholder="Name"
                                         value={userInfo.name}
                                         onChange={({ target }) => setUserInfo({ ...userInfo, name: target.value })}
@@ -91,26 +91,26 @@ const Register = (d) => {
                                 <div className="mb-6">
                                     <input
                                         type="text"
-                                        className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                        placeholder="Email address"
-                                        value={userInfo.email}
-                                        onChange={({ target }) => setUserInfo({ ...userInfo, email: target.value })}
+                                        className="form-control block w-full px-4 py-2 text-sm font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                        placeholder="10 Digit Mobile Number"
+                                        value={userInfo.mobile}
+                                        onChange={({ target }) => setUserInfo({ ...userInfo, mobile: target.value })}
                                     />
                                 </div>
                                 <div className="mb-6">
                                     <input
                                         type="text"
-                                        className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                        placeholder="10 Digit Mobile Number"
-                                        value={userInfo.mobile}
-                                        onChange={({ target }) => setUserInfo({ ...userInfo, mobile: target.value })}
+                                        className="form-control block w-full px-4 py-2 text-sm font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                        placeholder="Email address"
+                                        value={userInfo.email}
+                                        onChange={({ target }) => setUserInfo({ ...userInfo, email: target.value })}
                                     />
                                 </div>
 
                                 <div className="mb-6">
                                     <input
                                         type="password"
-                                        className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                        className="form-control block w-full px-4 py-2 text-sm font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                         placeholder="Password"
                                         value={userInfo.password}
                                         onChange={({ target }) => setUserInfo({ ...userInfo, password: target.value })}
@@ -120,7 +120,7 @@ const Register = (d) => {
                                 <div className="mb-6">
                                     <input
                                         type="password"
-                                        className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                        className="form-control block w-full px-4 py-2 text-sm font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                         placeholder="Confirm Password"
                                         value={confrimPassowrd}
                                         onChange={({ target }) => setConfirmPassword(target.value)}
@@ -142,7 +142,7 @@ const Register = (d) => {
 
                                     <a
                                         href="#!"
-                                        className="text-blue-600 hover:text-blue-700 focus:text-blue-700 active:text-blue-800 duration-200 transition ease-in-out"
+                                        className="text-blue-600 hover:text-blue-700 focus:text-blue-700 active:text-blue-800 duration-200 transition ease-in-out text-sm"
                                     >Forgot password?</a
                                     >
                                 </div>

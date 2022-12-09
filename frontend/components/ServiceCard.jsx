@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import React from 'react'
 import MarketPlaceicons from './MarketPlaceicons'
-import FlipkartLogo from '../assets/Flipkart-Emblem.png'
+import FlipkartLogo from '../../assets/Flipkart-Emblem.png'
 
 const ServiceCard = ({ marketplace, service }) => {
 

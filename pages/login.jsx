@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import Layout from '../layouts/Main';
-import { signIn, useSession,getSession } from 'next-auth/react';
+import Layout from '../frontend/layouts/Main';
+import { signIn, useSession, getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 const Login = (d) => {
     const [userInfo, setUserInfo] = useState({ email: '', password: '' });
+    const [loginError, setLoginError] = useState(null);
     const router = useRouter();
     const session = useSession();
     console.log(session);
@@ -19,8 +20,15 @@ const Login = (d) => {
                 password: userInfo.password
             })
             if (res.ok) {
-                console.log(res)
-                router.push('/');
+                if (session.user && session.user.role === 'admin') {
+                   // router.push('/admin');
+                } else {
+                 //   router.push('/');
+                }
+            } else {
+
+                console.log(res);
+                setLoginError(res.error)
             }
         }
     }
@@ -48,13 +56,19 @@ const Login = (d) => {
                                 alt="Phone image"
                             />
                         </div>
-                        <div className="md:w-8/12 lg:w-5/12 lg:ml-20 shadow-md p-12">
+                        <div className="w-full lg:w-5/12 lg:ml-20 rounded-xl overflow-hidden shadow-lg border-gray-100 border-4 p-5 lg:p-10 ">
                             <form onSubmit={handleLogin}>
+
+                                {loginError &&
+                                    <div className='mb-6 text-red-500 text-xs'>
+                                        Username and/or password is incorrect.
+                                    </div>
+                                }
 
                                 <div className="mb-6">
                                     <input
                                         type="text"
-                                        className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                        className="form-control block w-full px-4 py-2 font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                         placeholder="Email address"
                                         value={userInfo.email}
                                         onChange={({ target }) => setUserInfo({ ...userInfo, email: target.value })}
@@ -64,7 +78,7 @@ const Login = (d) => {
                                 <div className="mb-6">
                                     <input
                                         type="password"
-                                        className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                        className="form-control block w-full px-4 py-2 font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                         placeholder="Password"
                                         value={userInfo.password}
                                         onChange={({ target }) => setUserInfo({ ...userInfo, password: target.value })}
@@ -79,26 +93,40 @@ const Login = (d) => {
                                             id="exampleCheck3"
 
                                         />
-                                        <label className="form-check-label inline-block text-gray-800" htmlFor="exampleCheck2"
+                                        <label className="form-check-label text-xs inline-block text-gray-800" htmlFor="exampleCheck2"
                                         >Remember me</label
                                         >
                                     </div>
                                     <a
                                         href="#!"
-                                        className="text-blue-600 hover:text-blue-700 focus:text-blue-700 active:text-blue-800 duration-200 transition ease-in-out"
+                                        className="text-blue-600 text-xs hover:text-blue-700 focus:text-blue-700 active:text-blue-800 duration-200 transition ease-in-out"
                                     >Forgot password?</a
                                     >
                                 </div>
 
-                                <button
-                                    type="submit"
-                                    className="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full"
-                                    data-mdb-ripple="true"
-                                    data-mdb-ripple-color="light"
-                                >
-                                    Sign in
-                                </button>
-                                <Link href='/register' className=''>Create Account.</Link>
+                                <div className='w-full flex justify-center py-2'>
+
+                                    <button
+                                        type='submit'
+                                        className="inline-block text-center px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out"
+                                        data-mdb-ripple="true"
+                                        data-mdb-ripple-color="light"
+                                    >
+                                        Login
+                                    </button>
+                                </div>
+                                <div className='w-full flex justify-center py-2'>OR</div>
+                                <div className='w-full flex justify-center pt-2'>
+
+                                    <Link
+                                        href='/register'
+                                        className="inline-block text-center px-7 py-3 bg-green-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out"
+                                        data-mdb-ripple="true"
+                                        data-mdb-ripple-color="light"
+                                    >
+                                        Create Account
+                                    </Link>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -121,7 +149,7 @@ export async function getServerSideProps(context) {
     }
 
     return {
-        props: { }
+        props: {}
     }
 }
 

@@ -2,9 +2,9 @@ import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
-import clientPromise from "../../../lib/mongodb";
-import dbConnect from "../../../lib/connectDB";
-import User from "../../../models/User";
+import clientPromise from "../../../frontend/lib/mongodb";
+import dbConnect from "../../../frontend/lib/connectDB";
+import User from "../../../frontend/models/User";
 import { compare } from "bcryptjs";
 
 export default NextAuth({
@@ -57,22 +57,30 @@ export default NextAuth({
   },
   callbacks: {
     async redirect({ url, baseUrl }) {
-      console.log(baseUrl, url)
+     // console.log(baseUrl, url)
       return baseUrl
     },
     async jwt({ token, user, account, profile, isNewUser }) {
+      console.log("JWT Token Before");
+      console.log(token)
+      
       if (user) {
-        // console.log(user)
-        token['role'] = user.role ? user.role : 'user';
+        console.log("JWT User")
+        console.log(user);
+        token.role = user.role;
         if (!user.validEmail) {
           token['emailToken'] = user.emailToken;
-
+          
         }
       }
+      console.log("JWT Token After")
+      console.log(token)
+      
       return token;
     },
     async session({ session, user, token }) {
       if (token) {
+        //console.log(token);
         session.user['role'] = token.role;
         if (token.emailToken) {
 

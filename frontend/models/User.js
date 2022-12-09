@@ -33,6 +33,11 @@ const userSchema = new mongoose.Schema({
     },
     pincode: {
         type: Number
+    },
+    role:{
+        type : String,
+        default: 'user',
+        required: true
     }
 
 

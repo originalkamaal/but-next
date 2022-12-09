@@ -1,9 +1,9 @@
-import connectDB from "../../../lib/connectDB"
-import User from "../../../models/User"
+import connectDB from "../../../frontend/lib/connectDB"
+import User from "../../../frontend/models/User"
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
 import absoluteUrl from "next-absolute-url"
-import { sendEmail } from "../../../helpers/sendEmail"
+import { sendEmail } from "../../../frontend/helpers/sendEmail"
 
 connectDB()
 
@@ -25,6 +25,8 @@ export default async (req, res) => {
         email: email,
         password: HashedPassword,
         name: name,
+        validEmail : false,
+        role: 'user'
       }).save()
 
       const token = jwt.sign({ _id: newUser._id }, process.env.NEXTAUTH_SECRET, {
