@@ -3,6 +3,7 @@ import "nprogress/nprogress.css";
 import Router from 'next/router';
 import NProgress from 'nprogress';
 import { getSession, SessionProvider } from "next-auth/react";
+import { ContextProvider } from '../backend/contexts/ContextProvider';
 
 Router.events.on('routeChangeStart', () => NProgress.start())
 Router.events.on('routeChangeComplete', () => NProgress.done())
@@ -15,13 +16,16 @@ function MyApp({
   Component, pageProps }) {
   return (
     <SessionProvider session={pageProps.session}>
-      <Component {...pageProps} />
+      <ContextProvider>
+
+        <Component {...pageProps} />
+      </ContextProvider>
     </SessionProvider>
   )
 }
 
 export async function getServerSideProps(ctx) {
-  
+
   return {
     props: {
       session: await getSession(ctx)
