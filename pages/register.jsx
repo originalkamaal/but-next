@@ -11,7 +11,7 @@ const Register = (d) => {
     const router = useRouter();
     const session = useSession();
     if (session.data) {
-        router.push('/');
+        console.log(session)
     }
 
     const validateStrength = (password) => {

@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
 import Layout from '../layouts/Main';
-import { signIn } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 const Login = (d) => {
     const [userInfo, setUserInfo] = useState({ email: '', password: '' });
     const router = useRouter();
+    const session = useSession();
+    console.log(session);
     //signOut();
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -18,7 +20,7 @@ const Login = (d) => {
             })
             if (res.ok) {
                 console.log(res)
-                router.push('/');
+                //router.push('/');
             }
         }
     }

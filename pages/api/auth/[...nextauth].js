@@ -55,10 +55,25 @@ export default NextAuth({
   session: {
     strategy: "jwt",
   },
-  callbacks:{
+  callbacks: {
     async redirect({ url, baseUrl }) {
       console.log(baseUrl, url)
       return baseUrl
     },
+    async jwt({ token, user, account, profile, isNewUser }) {
+      if (user) {
+       // console.log(user)
+        token['role'] = user.role ? user.role : 'user';
+      }
+      return token;
+    },
+    async session({session,user,token}){
+      if(token){
+        console.log("LLLLLL")
+        console.log(token)
+        session.user['role'] = token.role;
+      }
+      return session
+    }
   }
 });
