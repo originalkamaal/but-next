@@ -29,6 +29,17 @@ export default function Navbar({ }) {
     <div
       className='text-black bg-white sticky top-0 z-40 text-sm opacity-95'
     >
+      {session.data?.user?.role === 'admin' &&
+      <div className='hidden bg-gray-600 text-white lg:flex w-full justify-between p-2 px-6'>
+        <div>
+          <p>Hi, {session.data?.user?.name}</p>
+        </div>
+        <div>
+        <Link href="/admin" className=' hover:underline font-extrabold'>Go to Admin Dashboard</Link>
+        </div>
+
+      </div>
+      }
       {/* Mobile Links */}
       <div className="flex space-x-5">
         <ul
@@ -137,7 +148,7 @@ export default function Navbar({ }) {
             <input
               type="text"
               name="q"
-              className="py-2 w-80 text-sm text-white rounded-md pr-10 pl-3 focus:outline-none  focus:text-gray-900"
+              className="py-2 w-80 text-sm bg-gray-200 text-white rounded-md pr-10 pl-3 focus:outline-none  focus:text-gray-900"
               maxLength={256}
               placeholder="Search..."
               autoComplete="off"

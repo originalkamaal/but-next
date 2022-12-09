@@ -20,10 +20,10 @@ const Login = (d) => {
                 password: userInfo.password
             })
             if (res.ok) {
-                if (session.user && session.user.role === 'admin') {
-                   // router.push('/admin');
+                if (session.data?.user && session.data.user?.role === 'admin') {
+                   router.push('/admin');
                 } else {
-                 //   router.push('/');
+                   router.push('/');
                 }
             } else {
 

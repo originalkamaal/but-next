@@ -57,34 +57,26 @@ export default NextAuth({
   },
   callbacks: {
     async redirect({ url, baseUrl }) {
-     // console.log(baseUrl, url)
       return baseUrl
     },
     async jwt({ token, user, account, profile, isNewUser }) {
-      console.log("JWT Token Before");
-      console.log(token)
       
       if (user) {
-        console.log("JWT User")
-        console.log(user);
         token.role = user.role;
         if (!user.validEmail) {
-          token['emailToken'] = user.emailToken;
+          token.emailToken= user.emailToken;
           
         }
       }
-      console.log("JWT Token After")
-      console.log(token)
       
       return token;
     },
     async session({ session, user, token }) {
       if (token) {
-        //console.log(token);
-        session.user['role'] = token.role;
+        session.user.role = token.role;
         if (token.emailToken) {
 
-          session.user['emailToken'] = token.emailToken;
+          session.user.emailToken = token.emailToken;
         }
       }
       return session
