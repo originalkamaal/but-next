@@ -1,7 +1,9 @@
 import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import Layout from '../../../backend/layouts/Main'
+
+import { useFilters, usePagination, useSortBy, useTable } from 'react-table'
 
 
 const AddNewService = () => {
@@ -9,7 +11,7 @@ const AddNewService = () => {
   const [platforms, setPlatforms] = useState([])
   useEffect(() => {
     async function fetchData() {
-      await fetch('/api/admin/services/platforms_and_groups', { method: 'GET' }).then(data => data.json()).then(s =>console.log(s));
+      await fetch('/api/admin/services/platforms_and_groups', { method: 'GET' }).then(data => data.json()).then(s => console.log(s));
     }
     fetchData();
 
