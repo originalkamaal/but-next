@@ -11,7 +11,6 @@ const Register = (d) => {
     const router = useRouter();
     const session = useSession();
     if (session.data) {
-        console.log(session)
     }
 
     const validateStrength = (password) => {
@@ -22,8 +21,6 @@ const Register = (d) => {
 
     }
 
-
-    // console.log(d);
     const handleSignup = async (e) => {
         e.preventDefault();
         if (userInfo.email.includes('@')) {
@@ -46,7 +43,6 @@ const Register = (d) => {
                     });
                     if (res.status == 200) {
                         const data = await res.json();
-                        console.log(data);
                         router.push('/login');
 
                     } else {

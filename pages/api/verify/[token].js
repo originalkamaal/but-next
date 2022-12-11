@@ -11,7 +11,6 @@ export default async (req, res) => {
 
             if (token) {
                 const decoded = await jwt.verify(token, process.env.NEXTAUTH_SECRET);
-                console.log(decoded);
                 const user = await User.findById(decoded._id);
 
                 if (user) {
@@ -28,6 +27,5 @@ export default async (req, res) => {
 
         }
     } catch (error) {
-        console.log(error)
     }
 }

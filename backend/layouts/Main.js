@@ -7,9 +7,9 @@ const Main = ({ children }) => {
 
             <div className='relative'>
 
-                <Sidebar />
+                <Sidebar  />
             </div>
-            <div className=''>
+            <div className='w-full'>
                 {children}
 
             </div>

@@ -30,15 +30,15 @@ export default function Navbar({ }) {
       className='text-black bg-white sticky top-0 z-40 text-sm opacity-95'
     >
       {session.data?.user?.role === 'admin' &&
-      <div className='hidden bg-gray-600 text-white lg:flex w-full justify-between p-2 px-6'>
-        <div>
-          <p>Hi, {session.data?.user?.name}</p>
-        </div>
-        <div>
-        <Link href="/admin" className=' hover:underline font-extrabold'>Go to Admin Dashboard</Link>
-        </div>
+        <div className='hidden bg-gray-600 text-white lg:flex w-full justify-between p-2 px-6'>
+          <div>
+            <p>Hi, {session.data?.user?.name}</p>
+          </div>
+          <div>
+            <Link href="/admin" className=' hover:underline font-extrabold'>Go to Admin Dashboard</Link>
+          </div>
 
-      </div>
+        </div>
       }
       {/* Mobile Links */}
       <div className="flex space-x-5">
@@ -88,7 +88,6 @@ export default function Navbar({ }) {
           {session.data ?
             (<li className='w-full flex flex-col justify-center items-center' onClick={() => {
               subMenu == 'myaccount' ? setSubMenu('') : setSubMenu('myaccount');
-              console.log(subMenu);
             }}>
               My Account
 
@@ -104,7 +103,7 @@ export default function Navbar({ }) {
                     </Link>
                   </li>
                   <li>Edit Profile</li>
-                  <li onClick={signOut}>Logout</li>
+                  <li onClick={() => signOut({ redirect: '/login' })}>Logout</li>
                 </ul>
               </div>
             </li>

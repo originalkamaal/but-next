@@ -12,7 +12,6 @@ export default async (req, res) => {
     if (req.method === "POST") {
       const { email, password, name } = req.body
 
-      // console.log(email, password, firstName, lastName)
 
       const user = await User.findOne({ email: email })
 
@@ -33,7 +32,6 @@ export default async (req, res) => {
         expiresIn: "30d",
       })
 
-      console.log(token)
 
       newUser.emailToken = token
       await newUser.save()
@@ -44,9 +42,6 @@ export default async (req, res) => {
       const message = `<div>Click on the link below to verify your email, if the link is not working then please paste into the browser.</div></br>
     <div>link:${link}</div>`
 
-      // console.log("message", message)
-
-      // console.log("here")
 
       // await sendEmail({
       //   to: newUser.email,
@@ -59,6 +54,5 @@ export default async (req, res) => {
       })
     }
   } catch (error) {
-    console.log(error)
   }
 }

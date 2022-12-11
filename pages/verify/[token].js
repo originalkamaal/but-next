@@ -8,8 +8,6 @@ export default function EmailConfirm() {
 
     const { token } = router.query
 
-    console.log(token)
-
     useEffect(() => {
         sendToken(token)
     }, [token])

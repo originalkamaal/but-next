@@ -7,7 +7,7 @@ import dbConnect from "../../../frontend/lib/connectDB";
 import User from "../../../frontend/models/User";
 import { compare } from "bcryptjs";
 
-export default NextAuth({
+export const authOptions = {
   providers: [
     GithubProvider({
       clientId: process.env.GITHUB_ID,
@@ -60,26 +60,33 @@ export default NextAuth({
       return baseUrl
     },
     async jwt({ token, user, account, profile, isNewUser }) {
-      
+
       if (user) {
         token.role = user.role;
+        token.permissions = user.toJSON().permissions;
+        // console.log(permission);
         if (!user.validEmail) {
-          token.emailToken= user.emailToken;
-          
-        }
+          token.emailToken = user.emailToken;
+
+        }//
       }
-      
+
       return token;
     },
     async session({ session, user, token }) {
       if (token) {
+        console.log(token)
         session.user.role = token.role;
+        session.user.permissions = token.permissions;
         if (token.emailToken) {
 
           session.user.emailToken = token.emailToken;
         }
+        console.log(session);
       }
       return session
     }
   }
-});
+}
+
+export default NextAuth(authOptions)

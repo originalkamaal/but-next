@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
     },
     resetToken: { type: String },
     update: { type: String },
-    validEmail: { type:Boolean, default: false },
+    validEmail: { type: Boolean, default: false },
     emailToken: { type: String },
     addressOne: {
         type: String,
@@ -34,10 +34,15 @@ const userSchema = new mongoose.Schema({
     pincode: {
         type: Number
     },
-    role:{
-        type : String,
+    role: {
+        type: String,
         default: 'user',
         required: true
+    },
+    permissions: {
+        type: Array,
+        required: true,
+        default: ['frontend']
     }
 
 

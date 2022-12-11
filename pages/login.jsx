@@ -9,7 +9,6 @@ const Login = (d) => {
     const [loginError, setLoginError] = useState(null);
     const router = useRouter();
     const session = useSession();
-    console.log(session);
     //signOut();
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -27,7 +26,6 @@ const Login = (d) => {
                 }
             } else {
 
-                console.log(res);
                 setLoginError(res.error)
             }
         }
