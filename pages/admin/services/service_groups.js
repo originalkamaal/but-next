@@ -134,12 +134,12 @@ const AddNewService = () => {
                     </form>
                     <div className='rounded-md col-span-1 lg:col-span-2'>
 
-                        <table className='w-full text-center'>
-                            <thead className='bg-blue-50 w-full'>
+                        <table className='w-full text-center text-xs'>
+                            <thead className='bg-gray-200 w-full'>
                                 {table.getHeaderGroups().map((headerGroup, hgid) => (
                                     <tr key={hgid}>
                                         {headerGroup.headers.map((header, hid) => (
-                                            <th key={hid}>
+                                            <th key={hid} className='border border-collapse p-2'>
                                                 {header.isPlaceholder
                                                     ? null
                                                     : flexRender(
@@ -153,9 +153,9 @@ const AddNewService = () => {
                             </thead>
                             <tbody className=''>
                                 {table.getRowModel().rows.map((row, rid) => (
-                                    <tr key={rid}>
+                                    <tr key={rid} className="">
                                         {row.getVisibleCells().map((cell, cid) => (
-                                            <td key={cid}>
+                                            <td key={cid} className='border border-collapse p-2'>
                                                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                             </td>
                                         ))}
