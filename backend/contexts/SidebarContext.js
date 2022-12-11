@@ -1,9 +1,17 @@
-import React from 'react'
+import React, { createContext, useState } from "react";
 
-const SidebarContext = () => {
+
+const AdminContext = createContext();
+
+
+export const AdminContextProvider = ({ children }) => {
+  const [openMenu, setDropdown] = useState([])
+
   return (
-    <div>SidebarContext</div>
+    <AdminContext.Provider value={{ setDropdown, openMenu }}>
+      {children}
+    </AdminContext.Provider>
   )
 }
 
-export default SidebarContext
+export default AdminContext;

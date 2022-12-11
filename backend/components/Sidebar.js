@@ -1,11 +1,16 @@
+import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import AdminContext from '../contexts/SidebarContext'
 import { Logo } from './Logo'
 
 
 const Sidebar = () => {
-    const [openMenu, setToggle] = useState([])
+    const { openMenu, setDropdown } = useContext(AdminContext);
+    const session = useSession();
+
+    console.log(session);
     const router = useRouter();
 
     const menu = [
@@ -83,13 +88,47 @@ const Sidebar = () => {
 
             ],
             icon: () => (<></>)
+        },
+        {
+            title: 'Users',
+            children: [
+                {
+                    title: 'All Users',
+                    link: '/blog'
+                }, {
+                    title: 'Add New User',
+                    link: '/blog/addnew'
+                }, {
+                    title: 'Manage User',
+                    link: '/blog/catagories'
+                }
+
+            ],
+            icon: () => (<></>)
+        },
+        {
+            title: 'Reports',
+            children: [
+                {
+                    title: 'Sales',
+                    link: '/blog'
+                }, {
+                    title: 'Returning Customers',
+                    link: '/blog/addnew'
+                }, {
+                    title: '360 Degree Report',
+                    link: '/blog/catagories'
+                }
+
+            ],
+            icon: () => (<></>)
         }
     ]
 
     return (
         <>
-            {<div className={`flex justify-center w-72 h-full min-h-screen bg-gray-200`}>
-                <div className="flex flex-col w-full h-screen overflow-y-hidden bg-gray-900">
+            {<div className='mr-2 flex justify-center w-72 h-full min-h-screen bg-gray-200'>
+                <div className="flex flex-col w-full h-screen overflow-x-hidden overflow-y-visible bg-gray-900">
                     <div className="px-6 pt-8">
                         <div className="flex items-center justify-between">
 
@@ -136,19 +175,19 @@ const Sidebar = () => {
 
                         <ul className="flex flex-col space-y-2">
                             {menu.map((m, i) => (
-                                <li onClick={() => {
-                                    if (openMenu.includes(m.title)) {
-                                        setToggle(openMenu.filter(item =>  item !== m.title ))
-                                    } else {
-
-                                        setToggle([...openMenu, m.title])
-                                    }
-                                    console.log(router.route, m.link)
-                                }} key={i} className={`relative ${router.pathname == m.link ? 'text-white' :'text-gray-500 hover:text-white' }  focus-within:text-white`}>
+                                <li key={i} className={`relative ${router.pathname == m.link ? 'text-white' : 'text-gray-500 hover:text-white'}  focus-within:text-white`}>
                                     <div
                                         className="relative flex justify-between text-gray-500 hover:text-white focus-within:text-white"
                                     >
-                                        <div className="flex items-center w-full">
+                                        <div className="flex items-center w-full" onClick={() => {
+                                            if (openMenu.includes(m.title)) {
+                                                setDropdown(openMenu.filter(item => item !== m.title))
+                                            } else {
+
+                                                setDropdown([...openMenu, m.title])
+                                            }
+                                            console.log(router.route, m.link)
+                                        }}>
                                             <div
                                                 className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none"
                                             >
@@ -168,7 +207,7 @@ const Sidebar = () => {
                                         {m.children &&
 
 
-                                            <button className="absolute right-0 flex items-center p-1" tabindex="-1">
+                                            <button className="absolute right-0 flex items-center p-1" tabIndex="-1">
                                                 <svg className={`w-5 h-5 ${!openMenu.includes(m.title) && 'rotate-90'} duration-300 stroke-current`} fill="none" viewBox="0 0 24 24">
                                                     <path
                                                         stroke="currentColor"
@@ -282,7 +321,7 @@ const Sidebar = () => {
                                         >Content</a
                                         >
                                     </div>
-                                    <button className="absolute right-0 flex items-center p-1" tabindex="-1">
+                                    <button className="absolute right-0 flex items-center p-1" tabIndex="-1">
                                         <svg className="w-5 h-5 stroke-current" fill="none" viewBox="0 0 24 24">
                                             <path
                                                 stroke="currentColor"
@@ -572,38 +611,41 @@ const Sidebar = () => {
                             </li>
                         </ul>
                     </div>
-                    <div className="pl-6 pr-4 py-4 bg-[#232529] flex items-center justify-between">
-                        <div className="flex items-center">
-                            <div
-                                className="relative w-8 h-8 rounded-full before:absolute before:w-2 before:h-2 before:bg-green-500 before:rounded-full before:right-0 before:bottom-0 before:ring-1 before:ring-white"
+                    {session.data.user &&
+
+                        <div className="pl-6 pr-4 py-4 bg-[#232529] flex items-center justify-between">
+                            <div className="flex items-center">
+                                <div
+                                    className="relative w-8 h-8 rounded-full before:absolute before:w-2 before:h-2 before:bg-green-500 before:rounded-full before:right-0 before:bottom-0 before:ring-1 before:ring-white"
+                                >
+                                    <img
+                                        className="rounded-full"
+                                        src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8YXZhdGFyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
+                                        alt=""
+                                    />
+                                </div>
+                                <div className="flex flex-col pl-3">
+                                    <div className="text-sm text-gray-50">{session.data.user.name}</div>
+                                    <span className="text-xs text-[#acacb0] font-light tracking-tight">
+                                        {session.data.user.email}
+                                    </span>
+                                </div>
+                            </div>
+                            <button
+                                className="text-gray-400 bg-gray-700 rounded focus:outline-none focus:ring-1 focus:ring-gray-500 focus:text-white"
                             >
-                                <img
-                                    className="rounded-full"
-                                    src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8YXZhdGFyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
-                                    alt=""
-                                />
-                            </div>
-                            <div className="flex flex-col pl-3">
-                                <div className="text-sm text-gray-50">Jane Doeson</div>
-                                <span className="text-xs text-[#acacb0] font-light tracking-tight">
-                                    janedoeson@gmail.com
-                                </span>
-                            </div>
+                                <svg className="w-4 h-4 stroke-current" fill="none" viewBox="0 0 24 24">
+                                    <path
+                                        stroke="currentColor"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        stroke-width="1.5"
+                                        d="M15.25 10.75L12 14.25L8.75 10.75"
+                                    ></path>
+                                </svg>
+                            </button>
                         </div>
-                        <button
-                            className="text-gray-400 bg-gray-700 rounded focus:outline-none focus:ring-1 focus:ring-gray-500 focus:text-white"
-                        >
-                            <svg className="w-4 h-4 stroke-current" fill="none" viewBox="0 0 24 24">
-                                <path
-                                    stroke="currentColor"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    stroke-width="1.5"
-                                    d="M15.25 10.75L12 14.25L8.75 10.75"
-                                ></path>
-                            </svg>
-                        </button>
-                    </div>
+                    }
                 </div>
             </div>}
 

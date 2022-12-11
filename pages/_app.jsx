@@ -3,6 +3,7 @@ import "nprogress/nprogress.css";
 import Router from 'next/router';
 import NProgress from 'nprogress';
 import { getSession, SessionProvider } from "next-auth/react";
+import { AdminContextProvider } from '../backend/contexts/SidebarContext';
 
 Router.events.on('routeChangeStart', () => NProgress.start())
 Router.events.on('routeChangeComplete', () => NProgress.done())
@@ -15,8 +16,10 @@ function MyApp({
   Component, pageProps }) {
   return (
     <SessionProvider session={pageProps.session}>
+      <AdminContextProvider>
 
-      <Component {...pageProps} />
+        <Component {...pageProps} />
+      </AdminContextProvider>
     </SessionProvider>
   )
 }
