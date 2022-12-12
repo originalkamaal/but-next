@@ -4,7 +4,7 @@ import Router from 'next/router';
 import NProgress from 'nprogress';
 import { getSession, SessionProvider } from "next-auth/react";
 import 'react-toastify/dist/ReactToastify.css';
-import { AdminContextProvider } from '../backend/contexts/SidebarContext'; import {
+import {
   QueryClient,
   QueryClientProvider
 } from "@tanstack/react-query";
@@ -15,7 +15,12 @@ Router.events.on('routeChangeComplete', () => NProgress.done())
 Router.events.on('routeChangeError', () => NProgress.done())
 
 NProgress.configure({ showSpinner: false })
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {},
+    mutations: {}
+  }
+});
 
 
 
@@ -24,22 +29,20 @@ function MyApp({
   return (
     <QueryClientProvider client={queryClient}>
       <SessionProvider session={pageProps.session}>
-        <AdminContextProvider>
 
-          <Component {...pageProps} />
-          <ToastContainer
-            position="top-right"
-            autoClose={3000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable={false}
-            pauseOnHover
-            theme="dark"
-          />
-        </AdminContextProvider>
+        <Component {...pageProps} />
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable={false}
+          pauseOnHover
+          theme="dark"
+        />
       </SessionProvider>
     </QueryClientProvider>
   )

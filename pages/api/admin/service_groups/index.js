@@ -1,7 +1,7 @@
 import { unstable_getServerSession } from "next-auth/next"
-import { authOptions } from "../../../auth/[...nextauth]"
-import ServiceGroup from '../../../../../backend/models/ServiceGroup'
-import connectDB from "../../../../../frontend/lib/connectDB"
+import { authOptions } from "../../auth/[...nextauth]"
+import ServiceGroup from '../../../../backend/models/ServiceGroup'
+import connectDB from "../../../../frontend/lib/connectDB"
 
 connectDB();
 
@@ -38,7 +38,8 @@ export default async (req, res) => {
         }
     } else {
         // Not Signed in
-        res.status(401)
+        res.status(401);
+        
     }
 
 

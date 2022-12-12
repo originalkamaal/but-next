@@ -9,17 +9,17 @@ import { createColumnHelper, getCoreRowModel, useReactTable, flexRender } from '
 
 const AddNewService = () => {
 
-    const [state, setState] = useState({ globalError: null, data: { status: false } });
+    const [state, setState] = useState({ globalError: null, data: { status: false }, tableData: [] });
 
     const { isLoading, error, data, isFetching, refetch } = useQuery({
         queryKey: ["getAllSG"],
         queryFn: getAllSeriveGroups,
         refetchOnWindowFocus: false,
         enabled: true,
-        onSuccess: (data) => { console.log() }
+        onSuccess: (data) => { setState({ ...state, tableData: data }) }
     });
 
-    console.log(data);
+
 
 
     const columnHelper = createColumnHelper();
@@ -52,15 +52,14 @@ const AddNewService = () => {
             id: 'action',
             header: 'Actions',
             cell: (props) => {
-                console.log(props.table.getRow(props.row.id).original._id)
-                return <span>{props.table.getRow(props.row.id).original._id}</span>
+                return <Link href={'/admin/service_groups/' + props.table.getRow(props.row.id).original._id}>Edit</Link>
             }
         },
 
     ];
 
     const table = useReactTable({
-        data,
+        data: state.tableData,
         columns: defaultColumns,
         getCoreRowModel: getCoreRowModel()
     })
@@ -78,7 +77,6 @@ const AddNewService = () => {
         e.preventDefault();
 
         mutation.mutate({ ...state.data });
-        refetch();
     }
 
     const mutation = useMutation({
@@ -86,6 +84,7 @@ const AddNewService = () => {
         mutationFn: (data) => addNewServiceGroup(data),
         onError: () => toast.error('Error creating service group.'),
         onSuccess: (data) => {
+            refetch();
             if (data.error) {
                 toast.error(data.error)
             } else {
@@ -95,75 +94,76 @@ const AddNewService = () => {
     })
 
     return (
-        isFetching ? <div className='bg-black h-screen w-full'>Loading....</div> :
 
-            (<Layout title='Services' description='List of all the services'>
 
-                {mutation.isError && <div className='text-xs text-rose-700 bg-red-100 p-4 m-3 rounded-md'>{mutation.error.message}</div>}
-                <div className='w-full p-5 mb-5 pr-10 flex justify-between items-center'>
-                    <div className='flex flex-col'>
+        <Layout title='Services' description='List of all the services'>
 
-                        <div className='font-extrabold text-3xl'>Manage Service Groups</div>
-                        <div className='text-sm font-light'>Create new group by filling this form. Deleting any service group will also delete Serivices under the same group</div>
-                    </div>
-                    <div>
-                    </div>
+            {mutation.isError && <div className='text-xs text-rose-700 bg-red-100 p-4 m-3 rounded-md'>{mutation.error.message}</div>}
+            <div className='w-full p-5 mb-5 pr-10 flex justify-between items-center'>
+                <div className='flex flex-col'>
+
+                    <div className='font-extrabold text-3xl'>Manage Service Groups</div>
+                    <div className='text-sm font-light'>Create new group by filling this form. Deleting any service group will also delete Serivices under the same group</div>
                 </div>
+                <div>
+                </div>
+            </div>
 
-                <div className='grid grid-cols-1 lg:grid-cols-3 pr-4'>
-                    <form onSubmit={handleSubmit} className='col-span-1'>
-                        <div className='flex flex-col space-y-4 px-5 text-sm'>
+            <div className='grid grid-cols-1 lg:grid-cols-3 pr-4'>
+                <form onSubmit={handleSubmit} className='col-span-1'>
+                    <div className='flex flex-col space-y-4 px-5 text-sm'>
 
-                            <div>
-                                <input onChange={handleInputChange} type="text" id="title" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Titile" required />
-                            </div>
-                            <div>
-                                <textarea onChange={handleInputChange}
-                                    rows="4" type="text" id="description" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Description" required />
-                            </div>
-                            <div>
-                                <select onChange={handleInputChange} id="status" defaultValue={true} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Titile" required >
-                                    <option value={true}>Active</option>
-                                    <option value={false}>Inactive</option>
-                                </select>
-                            </div>
-                            {state.globalError && <span>This field is required</span>}
-                            <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none w-full focus:ring-blue-300 font-medium rounded-lg text-sm sm:w-auto px-5 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
-
+                        <div>
+                            <input onChange={handleInputChange} type="text" id="title" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Titile" required />
                         </div>
-                    </form>
-                    <div className='rounded-md col-span-1 lg:col-span-2'>
+                        <div>
+                            <textarea onChange={handleInputChange}
+                                rows="4" type="text" id="description" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Description" required />
+                        </div>
+                        <div>
+                            <select onChange={handleInputChange} id="status" defaultValue={true} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Titile" required >
+                                <option value={true}>Active</option>
+                                <option value={false}>Inactive</option>
+                            </select>
+                        </div>
+                        {state.globalError && <span>This field is required</span>}
+                        <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none w-full focus:ring-blue-300 font-medium rounded-lg text-sm sm:w-auto px-5 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
 
-                        <table className='w-full text-center text-xs'>
-                            <thead className='bg-gray-200 w-full'>
-                                {table.getHeaderGroups().map((headerGroup, hgid) => (
-                                    <tr key={hgid}>
-                                        {headerGroup.headers.map((header, hid) => (
-                                            <th key={hid} className='border border-collapse p-2'>
-                                                {header.isPlaceholder
-                                                    ? null
-                                                    : flexRender(
-                                                        header.column.columnDef.header,
-                                                        header.getContext()
-                                                    )}
-                                            </th>
-                                        ))}
-                                    </tr>
-                                ))}
-                            </thead>
-                            <tbody className=''>
-                                {table.getRowModel().rows.map((row, rid) => (
-                                    <tr key={rid} className="">
-                                        {row.getVisibleCells().map((cell, cid) => (
-                                            <td key={cid} className='border border-collapse p-2'>
-                                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                            </td>
-                                        ))}
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                        {/*{
+                    </div>
+                </form>
+                <div className='rounded-md col-span-1 lg:col-span-2'>
+                    <button onClick={refetch}>Refresh</button>
+
+                    <table className='w-full text-center text-xs'>
+                        <thead className='bg-gray-200 w-full'>
+                            {table.getHeaderGroups().map((headerGroup, hgid) => (
+                                <tr key={hgid}>
+                                    {headerGroup.headers.map((header, hid) => (
+                                        <th key={hid} className='border border-collapse p-2'>
+                                            {header.isPlaceholder
+                                                ? null
+                                                : flexRender(
+                                                    header.column.columnDef.header,
+                                                    header.getContext()
+                                                )}
+                                        </th>
+                                    ))}
+                                </tr>
+                            ))}
+                        </thead>
+                        <tbody className=''>
+                            {table.getRowModel().rows.map((row, rid) => (
+                                <tr key={rid} className="">
+                                    {row.getVisibleCells().map((cell, cid) => (
+                                        <td key={cid} className='border border-collapse p-2'>
+                                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                        </td>
+                                    ))}
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                    {/*{
                         page.length > 0 &&
                         <table {...getTableProps()} className='w-full border border-gray-200'>
                             <thead>
@@ -253,10 +253,10 @@ const AddNewService = () => {
                             </div>
                         </div>
                     }*/}
-                    </div>
                 </div>
-            </Layout>
-            )
+            </div>
+        </Layout>
+
     )
 }
 

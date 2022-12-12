@@ -2,12 +2,12 @@ import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useContext, useState } from 'react'
-import AdminContext from '../contexts/SidebarContext'
 import { Logo } from './Logo'
 
 
 const Sidebar = () => {
-    const { openMenu, setDropdown } = useContext(AdminContext);
+    
+  const [openMenu, setDropdown] = useState([])
     const session = useSession();
 
     const router = useRouter();
@@ -68,7 +68,7 @@ const Sidebar = () => {
                     link: '/admin/services/platforms'
                 }, {
                     title: 'Service Groups',
-                    link: '/admin/services/service_group'
+                    link: '/admin/service_groups'
                 }
 
             ],
