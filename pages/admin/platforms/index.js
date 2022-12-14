@@ -2,7 +2,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import Link from 'next/link'
 import React, { useState } from 'react'
 import Layout from '../../../backend/layouts/Main'
-import { addNewServiceGroup, getAllSeriveGroups, deleteSGbyID } from '../../../backend/service/service';
+import { addPlatform, getAllPlatforms, deletePlatformbyID } from '../../../backend/service/service';
 import { toast } from 'react-toastify';
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { getCoreRowModel, useReactTable, getPaginationRowModel } from '@tanstack/react-table';
@@ -10,14 +10,14 @@ import TablePagination from '../../../backend/components/TablePagination';
 import Table from '../../../backend/components/Table';
 
 
-const AddNewService = () => {
+const AddNewPlatform = () => {
 
-    const [state, setState] = useState({ globalError: null, data: { status: false }, tableData: [] });
+    const [state, setState] = useState({ globalError: null, data: { }, tableData: [] });
 
 
     const { isLoading, error, data, isFetching, refetch } = useQuery({
-        queryKey: ["getAllSG"],
-        queryFn: getAllSeriveGroups,
+        queryKey: ["getAllPlatforms"],
+        queryFn: getAllPlatforms,
         refetchOnWindowFocus: false,
         enabled: true,
         onSuccess: (data) => { console.log(data); setState({ ...state, tableData: data }) }
@@ -26,7 +26,7 @@ const AddNewService = () => {
 
     const mutation = useMutation({
         mutationKey: ['addNewSG'],
-        mutationFn: (data) => addNewServiceGroup(data),
+        mutationFn: (data) => addPlatform(data),
         onError: () => toast.error('Error creating service group.'),
         onSuccess: (data) => {
             if (data.error) {
@@ -82,7 +82,6 @@ const AddNewService = () => {
     })
 
     const handleInputChange = (e) => {
-        console.count();
         const key = e.target.id;
         const value = e.target.value;
         setState({ ...state, data: { ...state.data, [key]: value } });
@@ -90,7 +89,6 @@ const AddNewService = () => {
     }
 
     const handleSubmit = async (e) => {
-        console.log('Form Submitted')
         e.preventDefault();
 
         mutation.mutate({ ...state.data });
@@ -114,8 +112,8 @@ const AddNewService = () => {
             <div className='w-full p-5 mb-5 pr-10 flex justify-between items-center'>
                 <div className='flex flex-col'>
 
-                    <div className='font-extrabold text-3xl'>Manage Service Groups</div>
-                    <div className='text-sm font-light'>Create new group by filling this form. Deleting any service group will also delete Serivices under the same group</div>
+                    <div className='font-extrabold text-3xl'>Manage Platforms</div>
+                    <div className='text-sm font-light'>Add new Platform by filling this form.</div>
                 </div>
                 <div>
                 </div>
@@ -153,4 +151,4 @@ const AddNewService = () => {
 
 }
 
-export default AddNewService
+export default AddNewPlatform

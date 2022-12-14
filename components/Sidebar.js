@@ -65,7 +65,7 @@ const Sidebar = () => {
                     link: '/admin/services/addnew'
                 }, {
                     title: 'Platforms',
-                    link: '/admin/services/platforms'
+                    link: '/admin/platforms'
                 }, {
                     title: 'Service Groups',
                     link: '/admin/service_groups'

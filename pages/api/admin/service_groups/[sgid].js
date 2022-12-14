@@ -12,7 +12,6 @@ export default async (req, res) => {
     const session = await unstable_getServerSession(req, res, authOptions)
     if (session?.user && session.user?.role == 'admin' && session.user?.permissions.includes('services')) {
         if (req.method == 'GET') {
-            console.log(req.query.sgid);
             ServiceGroup.findById(req.query.sgid, (err, docs) => {
                 if (err) {
                     res.status(200).send({ error: 'Service group with ' + req.query.sgid + ' does not exists' });
@@ -22,10 +21,10 @@ export default async (req, res) => {
                 }
             });
         } else if (req.method == 'POST') {
-            const { id, title, description, status } = req.body;
-            ServiceGroup.findByIdAndUpdate(id, { title, description, status }, (err, docs) => {
+            const { id, title, description } = req.body;
+            ServiceGroup.findByIdAndUpdate(id, { title, description }, (err, docs) => {
                 if (err) {
-                    res.status(200).send({ error: 'Service group with ' + id + ' does not exists' });
+                    res.status(200).send({ error: 'There is some problem with network.' });
                 } else {
                     res.status(200).send({ success: true, message: 'Service group updated' });
                 }
