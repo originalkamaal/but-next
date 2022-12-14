@@ -1,8 +1,8 @@
 import { useQuery, useMutation } from '@tanstack/react-query';
 import React, { useState } from 'react'
 
-import Layout from '../../../backend/layouts/Main'
-import { editServiceGroup, getSGDetails } from '../../../backend/service/service';
+import Layout from '../../../layouts/Main'
+import { editServiceGroup, getSGDetails } from '../../../service/service';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
 

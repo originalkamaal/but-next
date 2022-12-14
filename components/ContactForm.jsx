@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import React from 'react'
-import ContactSVG from '../../assets/Contacts.svg'
+import ContactSVG from '../assets/Contacts.svg'
 
 const ContactForm = () => {
     return (

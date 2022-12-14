@@ -2,9 +2,9 @@ import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
-import clientPromise from "../../../frontend/lib/mongodb";
-import dbConnect from "../../../frontend/lib/connectDB";
-import User from "../../../frontend/models/User";
+import clientPromise from "../../../lib/mongodb";
+import dbConnect from "../../../lib/connectDB";
+import User from "../../../models/User";
 import { compare } from "bcryptjs";
 
 export const authOptions = {

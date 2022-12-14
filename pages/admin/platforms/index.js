@@ -1,13 +1,13 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import Link from 'next/link'
 import React, { useState } from 'react'
-import Layout from '../../../backend/layouts/Main'
-import { addPlatform, getAllPlatforms, deletePlatformbyID } from '../../../backend/service/service';
+import Layout from '../../../layouts/Main'
+import { addPlatform, getAllPlatforms, deletePlatformbyID } from '../../../service/service';
 import { toast } from 'react-toastify';
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { getCoreRowModel, useReactTable, getPaginationRowModel } from '@tanstack/react-table';
-import TablePagination from '../../../backend/components/TablePagination';
-import Table from '../../../backend/components/Table';
+import TablePagination from '../../../components/TablePagination';
+import Table from '../../../components/Table';
 
 
 const AddNewPlatform = () => {

@@ -1,6 +1,6 @@
 import React from 'react'
-import Layout from '../frontend/layouts/Main';
-import ServicesContainer from '../frontend/containers/Services';
+import Layout from '../layouts/Main';
+import ServicesContainer from '../containers/Services';
 
 const Services = () => {
     return (

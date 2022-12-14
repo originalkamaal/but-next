@@ -2,14 +2,14 @@ import React from 'react';
 
 import SectionTitle from '../components/SectionTitle';
 import OurServiceCard from '../components/OurServiceCard';
-import AccountManagementIcon from '../../assets/AccountManagementIcon.png';
-import AdsAndDMIcon from '../../assets/AdsAndDMIcon.png';
-import AppDevIcon from '../../assets/AppDevIcon.png';
-import ListingAndCatalogingIcon from '../../assets/ListingAndCatalogingIcon.png';
-import NewAccountRegistrationIcon from '../../assets/NewAccountRegistrationIcon.png';
-import ProductPhotographyIcon from '../../assets/ProductPhotographyIcon.png';
-import SellerReinstatementIcon from '../../assets/SellerReinstatementIcon.png';
-import SellerTrainingIcon from '../../assets/SellerTrainingIcon.png';
+import AccountManagementIcon from '../assets/AccountManagementIcon.png';
+import AdsAndDMIcon from '../assets/AdsAndDMIcon.png';
+import AppDevIcon from '../assets/AppDevIcon.png';
+import ListingAndCatalogingIcon from '../assets/ListingAndCatalogingIcon.png';
+import NewAccountRegistrationIcon from '../assets/NewAccountRegistrationIcon.png';
+import ProductPhotographyIcon from '../assets/ProductPhotographyIcon.png';
+import SellerReinstatementIcon from '../assets/SellerReinstatementIcon.png';
+import SellerTrainingIcon from '../assets/SellerTrainingIcon.png';
 //title, desc, icon, link
 const OurServices = () => {
   let services = [

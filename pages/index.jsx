@@ -1,12 +1,12 @@
-import Layout from '../frontend/layouts/Main';
+import Layout from '../layouts/Main';
 
-import Banner from '../frontend/components/Banner';
-import ContactForm from '../frontend/components/ContactForm';
-import WhyBrightUrban from '../frontend/containers/WhyBrightUrban';
-import OurServices from '../frontend/containers/OurServices';
-import BlogsHome from '../frontend/containers/BlogsHome';
-import OurAchievements from '../frontend/containers/OurAchievements';
-import SectionTitle from '../frontend/components/SectionTitle';
+import Banner from '../components/Banner';
+import ContactForm from '../components/ContactForm';
+import WhyBrightUrban from '../containers/WhyBrightUrban';
+import OurServices from '../containers/OurServices';
+import BlogsHome from '../containers/BlogsHome';
+import OurAchievements from '../containers/OurAchievements';
+import SectionTitle from '../components/SectionTitle';
 import { useSession, signIn, signOut } from "next-auth/react";
 
 

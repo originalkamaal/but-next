@@ -1,5 +1,5 @@
 import React from 'react'
-import Layout from '../frontend/layouts/Main';
+import Layout from '../layouts/Main';
 
 const Blog = () => {
     return (

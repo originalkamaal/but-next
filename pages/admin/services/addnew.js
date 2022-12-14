@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import Layout from '../../../backend/layouts/Main'
+import Layout from '../../../layouts/Main'
 
 
 const AddNewService = () => {

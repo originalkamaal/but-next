@@ -1,9 +1,9 @@
-import connectDB from "../../../frontend/lib/connectDB"
-import User from "../../../frontend/models/User"
+import connectDB from "../../../lib/connectDB"
+import User from "../../../models/User"
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
 import absoluteUrl from "next-absolute-url"
-import { sendEmail } from "../../../frontend/helpers/sendEmail"
+import { sendEmail } from "../../../helpers/sendEmail"
 
 connectDB()
 

@@ -1,7 +1,7 @@
 // import Link from 'next/link'
 // import React, { useMemo } from 'react'
 // import { useFilters, usePagination, useSortBy, useTable } from 'react-table'
-// import Layout from '../../../backend/layouts/Main'
+// import Layout from '../../../layouts/Main'
 
 
 // const Services = () => {

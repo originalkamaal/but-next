@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Layout from '../frontend/layouts/Main';
+import Layout from '../layouts/Main';
 import { signIn, useSession, getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
