@@ -10,6 +10,7 @@ const Main = ({ children }) => {
                 <Sidebar  />
             </div>
             <div className='w-full'>
+                
                 {children}
 
             </div>

@@ -1,5 +1,5 @@
 import connectDB from "../../../lib/connectDB"
-import User from "../../../models/User"
+import User from "../../../utils/models/User"
 import jwt from "jsonwebtoken"
 
 connectDB()

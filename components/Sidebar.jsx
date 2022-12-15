@@ -2,130 +2,18 @@ import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useContext, useState } from 'react'
+import { sidebarMenu as menu } from '../utils/contexts/static_data'
 import { Logo } from './Logo'
 
 
+
 const Sidebar = () => {
-    
-  const [openMenu, setDropdown] = useState([])
+
+    const [openMenu, setDropdown] = useState([])
     const session = useSession();
 
     const router = useRouter();
 
-    const menu = [
-        {
-            title: 'Dashboard',
-            link: '/admin',
-            icon: () => (<svg className="w-5 h-5 stroke-current" fill="none" viewBox="0 0 24 24">
-                <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="1.5"
-                    d="M4.75 6.75C4.75 5.64543 5.64543 4.75 6.75 4.75H17.25C18.3546 4.75 19.25 5.64543 19.25 6.75V17.25C19.25 18.3546 18.3546 19.25 17.25 19.25H6.75C5.64543 19.25 4.75 18.3546 4.75 17.25V6.75Z"
-                ></path>
-                <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="1.5"
-                    d="M9.75 8.75V19"
-                ></path>
-                <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="1.5"
-                    d="M5 8.25H19"
-                ></path>
-            </svg>)
-        },
-        {
-            title: 'Customers',
-            children: [
-                {
-                    title: 'All Customers',
-                    link: '/admin/customers'
-                },
-                {
-                    title: 'Add New Customer',
-                    link: '/admin/customers/addnew'
-                }
-            ],
-            icon: () => (<></>)
-        },
-        {
-            title: 'Services',
-            children: [
-                {
-                    title: 'All Services',
-                    link: '/admin/services'
-                }, {
-                    title: 'Add New Services',
-                    link: '/admin/services/addnew'
-                }, {
-                    title: 'Platforms',
-                    link: '/admin/platforms'
-                }, {
-                    title: 'Service Groups',
-                    link: '/admin/service_groups'
-                }
-
-            ],
-            icon: () => (<></>)
-        },
-        {
-            title: 'Blogs',
-            children: [
-                {
-                    title: 'All Posts',
-                    link: '/blog'
-                }, {
-                    title: 'Add New Article',
-                    link: '/blog/addnew'
-                }, {
-                    title: 'Manage Categories',
-                    link: '/blog/catagories'
-                }
-
-            ],
-            icon: () => (<></>)
-        },
-        {
-            title: 'Users',
-            children: [
-                {
-                    title: 'All Users',
-                    link: '/blog'
-                }, {
-                    title: 'Add New User',
-                    link: '/blog/addnew'
-                }, {
-                    title: 'Manage User',
-                    link: '/blog/catagories'
-                }
-
-            ],
-            icon: () => (<></>)
-        },
-        {
-            title: 'Reports',
-            children: [
-                {
-                    title: 'Sales',
-                    link: '/blog'
-                }, {
-                    title: 'Returning Customers',
-                    link: '/blog/addnew'
-                }, {
-                    title: '360 Degree Report',
-                    link: '/blog/catagories'
-                }
-
-            ],
-            icon: () => (<></>)
-        }
-    ]
 
     return (
         <>

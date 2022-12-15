@@ -1,9 +1,8 @@
-import connectDB from "../../../lib/connectDB"
-import User from "../../../models/User"
+import connectDB from "../../../utils/libs/connectDB"
+import User from "../../../utils/models/User"
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
 import absoluteUrl from "next-absolute-url"
-import { sendEmail } from "../../../helpers/sendEmail"
 
 connectDB()
 
@@ -24,7 +23,7 @@ export default async (req, res) => {
         email: email,
         password: HashedPassword,
         name: name,
-        validEmail : false,
+        validEmail: false,
         role: 'user'
       }).save()
 

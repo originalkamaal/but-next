@@ -1,183 +1,121 @@
-// import Link from 'next/link'
-// import React, { useMemo } from 'react'
-// import { useFilters, usePagination, useSortBy, useTable } from 'react-table'
-// import Layout from '../../../layouts/Main'
+import { useQuery } from '@tanstack/react-query'
+import { useReactTable, getCoreRowModel, getPaginationRowModel, flexRender } from '@tanstack/react-table'
+import Link from 'next/link'
+import React, { useState } from 'react'
+import AdminButton from '../../../components/AdminButton'
+import Layout from '../../../layouts/AdminLayout'
+import { getAllSerives } from '../../../utils/service/service';
 
 
-// const Services = () => {
+const AllServices = () => {
 
-//     const columns = useMemo(() => [
-//         {
-//             Header: 'Title',
-//             accessor: 'title',
-//         }, {
-//             Header: 'Type',
-//             accessor: 'type',
-//         }, {
-//             Header: 'Platforms',
-//             accessor: 'platforms',
-//         }, {
-//             Header: 'Gross',
-//             accessor: 'gross',
-//         }, {
-//             Header: 'GST %',
-//             accessor: 'gstper',
-//         }, {
-//             Header: 'GST Amount',
-//             accessor: 'gstamount',
-//         }, {
-//             Header: 'Net',
-//             accessor: 'net',
-//         }, {
-//             Header: 'Edit',
-//             accessor: 'edit',
-//         }, {
-//             Header: 'delet',
-//             accessor: 'delet',
-//         }
-//     ], []);
+  const [state, setState] = useState({ globalError: null, data: { status: false }, tableData: [] });
 
+  const query = useQuery({
+    queryKey: ["getAllSG"],
+    queryFn: getAllSerives,
+    refetchOnWindowFocus: false,
+    enabled: true,
+    onSuccess: (data) => { setState({ ...state, tableData: data }) }
+  });
 
-//     const data = useMemo(() => [{
-//         title: 'This is a Sample service',
-//         type: 'Account Management',
-//         platforms: 'Sample',
-//         gross: 'Sample',
-//         gstper: 'Sample',
-//         gstamount: 'Sample',
-//         net: 'Sample',
-//         edit: 'Sample',
-//         delet: 'Sample',
-//     }], []);
+  const defaultColumns = [
+    {
+      accessorKey: 'title',
+      id: 'title',
+      header: 'Title',
+      cell: (props) => <span className='whitespace-nowrap px-2'>{props.getValue()}</span>
+
+    },
+
+    {
+      id: 'description',
+      accessorKey: 'description',
+      header: 'Description'
+    },
+
+    {
+
+      id: 'status',
+      accessorKey: 'status',
+      header: 'Status',
+      cell: (props) => props.getValue() == true ? 'Active' : 'Inactive'
+    },
 
 
-//     const {
-//         getTableProps,
-//         getTableBodyProps,
-//         headerGroups,
-//         prepareRow,
-//         page,
-//         canPreviousPage,
-//         canNextPage,
-//         pageOptions,
-//         pageCount,
-//         gotoPage,
-//         nextPage,
-//         previousPage,
-//         setPageSize,
-//         state: { pageIndex, pageSize },
-//     } = useTable({ columns, data }, useFilters, useSortBy, usePagination)
+    {
+
+      id: 'action',
+      header: 'Actions',
+      cell: (props) => {
+        return <Link href={'/admin/service_groups/' + props.table.getRow(props.row.id).original._id}>Edit</Link>
+      }
+    },
+
+  ];
+
+  const table = useReactTable({
+    data: state.tableData,
+    columns: defaultColumns,
+    getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel()
+  })
 
 
-//     return (
-//         <Layout title='Services' description='List of all the services'>
-//             <div className='w-full p-5 pr-10 mb-5 flex justify-between items-center'>
-//                 <div className='flex flex-col'>
+  return (
 
-//                     <div className='font-extrabold text-3xl'>Services</div>
-//                     <div className='text-sm font-light'>List of all the services.</div>
-//                 </div>
-//                 <div>
 
-//                     <Link href='/admin/services/addnew'>
-//                         <div className='bg-gray-800 text-white font-light text-sm px-3 py-2 rounded-md'>
-//                             Add New
-//                         </div>
-//                     </Link>
+    <Layout title='Services' description='List of all the services'>
 
-//                 </div>
-//             </div>
+      <div className='w-full p-5 mb-5 pr-10 flex justify-between items-center'>
+        <div className='flex flex-col'>
 
-//             <div className='px-8'>
+          <div className='font-extrabold text-3xl'>Manage Service</div>
+          <div className='text-sm font-light'>List of all the services.</div>
+        </div>
+        <div>
+          <AdminButton title='Add New Service' href="/admin/services/add-new-service" />
+        </div>
+      </div>
 
-//                 <table {...getTableProps()} className='w-full border border-gray-200'>
-//                     <thead>
-//                         {headerGroups.map(headerGroup => (
-//                             <tr {...headerGroup.getHeaderGroupProps()}>
-//                                 {headerGroup.headers.map(column => (
-//                                     <th
-//                                         {...column.getHeaderProps()}
-//                                         className='py-1 bg-blue-100 text-xs px-4'
-//                                     >
-//                                         {column.render('Header')}
-//                                     </th>
-//                                 ))}
-//                             </tr>
-//                         ))}
-//                     </thead>
-//                     <tbody {...getTableBodyProps()}>
-//                         {page.map(row => {
-//                             prepareRow(row)
-//                             return (
-//                                 <tr {...row.getRowProps()}>
-//                                     {row.cells.map(cell => {
-//                                         return (
-//                                             <td
-//                                                 {...cell.getCellProps()}
-//                                                 className="text-center border border-gray-200 text-sm py-2"
-//                                             >
-//                                                 {cell.render('Cell')}
-//                                             </td>
-//                                         )
-//                                     })}
-//                                 </tr>
-//                             )
-//                         })}
-//                     </tbody>
-//                 </table>
-//                 <div className="pagination w-full flex justify-between py-3 text-xs items-center">
-//                     <div className='flex items-center'>
-//                         <button onClick={() => gotoPage(0)} disabled={!canPreviousPage} className={`bg-gray-200 text-white mx-1 px-3 rounded-full ${canPreviousPage && 'bg-gray-400 hover:bg-gray-800 border-gray-800'}`}>
-//                             {'<<'}
-//                         </button>
-//                         <button onClick={() => previousPage()} disabled={!canPreviousPage} className={`bg-gray-200 text-white mx-1 px-3 rounded-full ${canPreviousPage && 'bg-gray-400 hover:bg-gray-800 border-gray-800'}`}>
-//                             {'<'}
-//                         </button>
-//                         <span>
-//                             Page&nbsp;
-//                             <strong>
-//                                 {pageIndex + 1} of {pageOptions.length}
-//                             </strong>
-//                         </span>
-//                         <button onClick={() => nextPage()} disabled={!canNextPage} className={`bg-gray-200 text-white mx-1 px-3 rounded-full ${canNextPage && 'bg-gray-400 hover:bg-gray-800 border-gray-800'}`}>
-//                             {'>'}
-//                         </button>
-//                         <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage} className={`bg-gray-200 text-white mx-1 px-3 rounded-full ${canNextPage && 'bg-gray-400 hover:bg-gray-800 border-gray-800'}`}>
-//                             {'>>'}
-//                         </button>
-//                     </div>
-//                     <div className='flex items-center'>
+      <div className='grid grid-cols-1 lg:grid-cols-3 pl-4 pr-8'>
 
-//                         <span>
-//                             Go to page:
-//                             <input
-//                                 type="number"
-//                                 defaultValue={pageIndex + 1}
-//                                 onChange={e => {
-//                                     const page = e.target.value ? Number(e.target.value) - 1 : 0
-//                                     gotoPage(page)
-//                                 }}
-//                                 className='w-10  pl-2 mx-2 text-center rounded-md border-gray-200 border-2'
-//                             />
-//                         </span>
-//                         <select className='border-2 border-gray-200 rounded-md px-2'
-//                             value={pageSize}
-//                             onChange={e => {
-//                                 setPageSize(Number(e.target.value))
-//                             }}
-//                         >
-//                             {[10, 20, 30, 40, 50].map(pageSize => (
-//                                 <option key={pageSize} value={pageSize}>
-//                                     Show {pageSize}
-//                                 </option>
-//                             ))}
-//                         </select>
-//                     </div>
-//                 </div>
-//             </div>
-//         </Layout>
-//     )
-// }
+        <div className='rounded-md col-span-1 lg:col-span-3'>
 
-// export default Services
+          <table className='w-full text-center text-xs'>
+            <thead className='bg-gray-200 w-full'>
+              {table.getHeaderGroups().map((headerGroup, hgid) => (
+                <tr key={hgid}>
+                  {headerGroup.headers.map((header, hid) => (
+                    <th key={hid} className='border border-collapse p-2'>
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                    </th>
+                  ))}
+                </tr>
+              ))}
+            </thead>
+            <tbody className=''>
+              {table.getRowModel().rows.map((row, rid) => (
+                <tr key={rid} className="">
+                  {row.getVisibleCells().map((cell, cid) => (
+                    <td key={cid} className='border border-collapse p-2'>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
 
+        </div>
+      </div>
+    </Layout>
+
+  )
+}
+export default AllServices

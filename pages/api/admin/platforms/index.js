@@ -1,6 +1,6 @@
 import { unstable_getServerSession } from "next-auth/next"
 import { authOptions } from "../../auth/[...nextauth]"
-import ServiceGroup from '../../../../models/Platform'
+import ServiceGroup from '../../../../utils/models/Platform'
 import connectDB from "../../../../lib/connectDB"
 
 connectDB();
